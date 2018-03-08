@@ -1,9 +1,18 @@
- /*
+/*------------------------------------------------------------------------------
 
- Copyright (c) 2017 virtualdisgrace.com
+ Root, Build 16
+
+ Wendy's OpenCollar Distribution
+ https://github.com/wendystarfall/opencollar
+
+--------------------------------------------------------------------------------
+
+ Copyright © 2017, 2018 virtualdisgrace.com
+
+--------------------------------------------------------------------------------
 
  Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License. 
+ you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
@@ -14,13 +23,10 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 
- */
-
-
-// # --------------------------------------------------------------------- v1.2 #
-// # ---------------- Here is some stuff that you should edit! ---------------- #
-// # ------ Always write in between the quotation marks "just like that" ------ #
-
+--------------------------------------------------------------------------------
+                 Below here is some stuff that you should edit!
+          Always write in between the quotation marks "just like that"
+------------------------------------------------------------------------------*/
 
 string headline = "";
 // Example: string headline = "Property of House Lannister";
@@ -40,21 +46,24 @@ string landmark = ""; // SLURL
 string locking = "dec9fb53-0fef-29ae-a21d-b3047525d312"; // key of the lock sound
 string unlocking = "82fa6d06-b494-f97c-2908-84009380c8d1"; // key of the unlock sound
 
+string safeword = "RED";
 
-// # ----- Everything below this line should only by edited by scripters! ----- #
-// # -------------------------------------------------------------------------- #
+/*------------------------------------------------------------------------------
+         Everything below this line should only by edited by scripters!
+--------------------------------------------------------------------------------
 
+     This plugin creates the root (or main), apps and settings menus,
+     and has the default LOCK/UNLOCK button. It can also dispense the help
+     and license files (if present in contents) and can print info/version.
 
-// This plugin creates the root (or main), apps and settings menus,
-// and has the default LOCK/UNLOCK button. It can also dispense the help
-// and license files (if present in contents) and can print info/version.
+     It also includes code for the tiny steam-engine behind the LOCK/UNLOCK
+     button and can play different noises depending on lock/unlock action,
+     and reveal or hide a lock element on the device. There is also dedicated
+     logic for a stealth function that can optionally hide the whole device.
 
-// It also includes code for the tiny steam-engine behind the LOCK/UNLOCK
-// button and can play different noises depending on lock/unlock action,
-// and reveal or hide a lock element on the device. There is also dedicated
-// logic for a stealth function that can optionally hide the whole device.
+------------------------------------------------------------------------------*/
 
-// Finally there is logic to optionally allow the installation of updates.
+integer build = 16;
 
 integer CMD_OWNER = 500;
 integer CMD_WEARER = 503;
@@ -77,12 +86,12 @@ integer RLV_CLEAR = 6002;
 integer DIALOG = -9000;
 integer DIALOG_RESPONSE = -9001;
 integer DIALOG_TIMEOUT = -9002;
+integer BUILD_REQUEST = 17760501;
 
 key wearer;
 
 string that_token = "global_";
 string dist;
-string safeword = "RED";
 integer locked;
 integer hidden;
 integer looks;
@@ -170,17 +179,6 @@ stealth (string str) {
     show_hide_lock();
 }
 
-//update
-integer update = FALSE;
-key id_installer;
-
-doupdate() {
-    integer pin = (integer)llFrand(99999998.0) + 1;
-    llSetRemoteScriptAccessPin(pin);
-    integer chan_installer = -7484213;
-    llRegionSayTo(id_installer,chan_installer,"ready|"+(string)pin);
-}
-
 //menus
 list these_menus;
 
@@ -188,9 +186,9 @@ dialog(key id, string context, list buttons, list arrows, integer page, integer 
     key that_menu = llGenerateKey();
     llMessageLinked(LINK_DIALOG,DIALOG,(string)id+"|"+context+"|"+(string)page+"|"+llDumpList2String(buttons,"`")+"|"+llDumpList2String(arrows,"`")+"|"+(string)auth,that_menu);
     integer index = llListFindList(these_menus,[id]);
-    if (~index) 
+    if (~index)
         these_menus = llListReplaceList(these_menus,[id,that_menu,name],index,index + 2);
-    else 
+    else
         these_menus += [id,that_menu,name];
 }
 
@@ -261,6 +259,15 @@ commands(integer auth, string str, key id) {
                 menu_root(id,auth);
             } else menu_settings(id,auth);
         }
+    } else if (cmd == "safeword") {
+        string newsafeword = llList2String(params,1);
+        if(llStringTrim(newsafeword, STRING_TRIM) != "") {
+            safeword = newsafeword;
+            llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"You set a new safeword: "+safeword,wearer);
+            llMessageLinked(LINK_SAVE,LM_SETTING_SAVE,that_token+"safeword="+safeword,"");
+            llMessageLinked(LINK_SET,LM_SETTING_RESPONSE,that_token+"safeword="+safeword,"");
+        } else
+            llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"Your safeword is: "+safeword,wearer);
     } else if (str == "info" || str == "version") {
         string message = "\n\nModel: "+llGetObjectName();
         message += "\nVersion: "+(string)version+"\nOrigin: ";
@@ -284,16 +291,11 @@ commands(integer auth, string str, key id) {
             make_menus();
             llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"I've fixed the menus.",id);
         } else llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",id);
-    } else if (!llSubStringIndex(str,".- ... -.-") && id == wearer) {
-        if (update) {
-            id_installer = (key)llGetSubString(str,-36,-1);
-            dialog(id,"\nReady to install?",["Yes","No"],["Cancel"],0,auth,"update");
-        } else llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"Updates are disabled on this collar. In case of doubt, please contact "+uri("agent/"+dist),id);
     } else if (str == "hide" || str == "show" || str == "stealth") {
         if (auth == CMD_OWNER || auth == CMD_WEARER) stealth(str);
         else if ((key)id) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",id);
     } else if (str == "lock") {
-        if (auth == CMD_OWNER || id == wearer ) {
+        if (auth == CMD_OWNER || id == wearer) {
             locked = TRUE;
             llMessageLinked(LINK_SAVE,LM_SETTING_SAVE,that_token+"locked=1","");
             llMessageLinked(LINK_ROOT,LM_SETTING_RESPONSE,that_token+"locked=1","");
@@ -327,7 +329,7 @@ failsafe() {
     // this version of oc_root is a combo, we don't need those other plugins
     if (llGetInventoryType("oc_lock") == INVENTORY_SCRIPT) llRemoveInventory("oc_lock");
     if (llGetInventoryType("oc_stealth") == INVENTORY_SCRIPT) llRemoveInventory("oc_stealth");
-    if (llGetInventoryType("oc_update") == INVENTORY_SCRIPT) llRemoveInventory("oc_update");
+    if (~llSubStringIndex(llToLower(version),"peanut") || ~llSubStringIndex(llToLower(version),"wendy")) version = "<invalid>";
 }
 
 make_menus() {
@@ -355,7 +357,6 @@ string uri(string str) {
 
 default {
     state_entry() {
-        //llSetMemoryLimit(32768);
         wearer = llGetOwner();
         init();
     }
@@ -395,7 +396,6 @@ default {
                 params = llParseString2List(str,["|"],[]);
                 id = (key)llList2String(params,0);
                 string button = llList2String(params,1);
-                //integer page = (integer)llList2String(params,2);
                 integer auth = (integer)llList2String(params,3);
                 string menu = llList2String(these_menus,menuindex + 1);
                 these_menus = llDeleteSubList(these_menus,menuindex - 1,menuindex + 1);
@@ -434,9 +434,6 @@ default {
                         return;
                     }
                     menu_settings(id,auth);
-                } else if (menu == "update") {
-                    if (button == "Yes") doupdate();
-                    else llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"cancelled",id);
                 }
             }
         } else if (num >= CMD_OWNER && num <= CMD_WEARER) commands(num,str,id);
@@ -454,10 +451,14 @@ default {
             } else if (this_token == that_token+"safeword") safeword = value;
             else if (this_token == "intern_dist") dist = value;
             else if (this_token == "intern_looks") looks = (integer)value;
+            else if (str == "settings=sent")
+                llMessageLinked(LINK_SET,LM_SETTING_RESPONSE,that_token+"safeword="+safeword,"");
         } else if (num == DIALOG_TIMEOUT) {
             integer menuindex = llListFindList(these_menus,[id]);
             these_menus = llDeleteSubList(these_menus,menuindex - 1,menuindex + 1);
-        } else if (num == REBOOT && str == "reboot") llResetScript();
+        } else if (num == BUILD_REQUEST)
+            llMessageLinked(sender,num+build,llGetScriptName(),"");
+        else if (num == REBOOT && str == "reboot") llResetScript();
     }
     changed(integer changes) {
         if (changes & CHANGED_OWNER) llResetScript();

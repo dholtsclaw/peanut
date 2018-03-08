@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 
- Themes, Build 43
+ Looks/Themes, Build 45
 
  Wendy's OpenCollar Distribution
  https://github.com/wendystarfall/opencollar
@@ -86,7 +86,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 43;
+integer g_iBuild = 45;
 
 list g_lElements;
 list g_lElementFlags;
@@ -271,6 +271,8 @@ BuildTexturesList() {
     }
     g_sTextureCard = "!textures";
     if(llGetInventoryType(g_sTextureCard)!=INVENTORY_NOTECARD) g_sTextureCard=".textures";
+    if(llGetInventoryType(g_sTextureCard)!=INVENTORY_NOTECARD) g_sTextureCard="textures_custom";
+    if(llGetInventoryType(g_sTextureCard)!=INVENTORY_NOTECARD) g_sTextureCard="textures";
     if(llGetInventoryType(g_sTextureCard)==INVENTORY_NOTECARD) {
         g_iTexturesNotecardLine=0;
         g_kTextureCardUUID=llGetInventoryKey(g_sTextureCard);
@@ -344,9 +346,7 @@ UserCommand(integer iNum, string sStr, key kID, integer reMenu, integer iPage) {
                         if (g_iLooks) LooksMenu(kID, iNum);
                         else llMessageLinked(LINK_ROOT, iNum, "menu Settings", kID);
                     }
-                } else {
-                    Dialog(kID,"\n⚠ This %DEVICETYPE% has no dedicated themes configured for it\n\nYou can [Uninstall] the themes plugin to save resources\nor you can use the [Looks] menu to fine-tune your %DEVICETYPE%\n\nATTENTION:\n\nDevices that are properly configured for [Looks] don't show this warning. Please use [Looks] responsibly in this case as it could alter your %DEVICETYPE% permanently\n\nIn case of doubt simply [Uninstall] this plugin ❤\n\nwww.opencollar.at/themes",[],["Uninstall","Looks","BACK"],0,iNum,"NoThemesMenu");
-                }
+                } else LooksMenu(kID,iNum);
             } else if (sCommand == "looks") LooksMenu(kID,iNum);
             else if (sCommand == "menu") ElementMenu(kID, 0, iNum, sElement);
             else if (sCommand == "shiny") {
@@ -456,6 +456,8 @@ default {
         BuildTexturesList();
         BuildElementsList();
         BuildThemesList();
+        llMessageLinked(LINK_ALL_OTHERS,LM_SETTING_SAVE,"intern_looks=1","");
+        llMessageLinked(LINK_THIS,LM_SETTING_RESPONSE,"intern_looks=1","");
     }
 
     link_message(integer iSender, integer iNum, string sStr, key kID) {

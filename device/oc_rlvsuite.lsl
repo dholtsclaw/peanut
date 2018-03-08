@@ -1,64 +1,57 @@
-//////////////////////////////////////////////////////////////////////////////
-//                                                                          //
-//       _   ___     __            __  ___  _                               //
-//      | | / (_)___/ /___ _____ _/ / / _ \(_)__ ___ ________ ________      //
-//      | |/ / / __/ __/ // / _ `/ / / // / (_-</ _ `/ __/ _ `/ __/ -_)     //
-//      |___/_/_/  \__/\_,_/\_,_/_/ /____/_/___/\_, /_/  \_,_/\__/\__/      //
-//                                             /___/                        //
-//                                                                          //
-//                                        _                                 //
-//                                        \`*-.                             //
-//                                         )  _`-.                          //
-//                                        .  : `. .                         //
-//                                        : _   '  \                        //
-//                                        ; *` _.   `*-._                   //
-//                                        `-.-'          `-.                //
-//                                          ;       `       `.              //
-//                                          :.       .        \             //
-//                                          . \  .   :   .-'   .            //
-//                                          '  `+.;  ;  '      :            //
-//                                          :  '  |    ;       ;-.          //
-//                                          ; '   : :`-:     _.`* ;         //
-//       RLV Suite - 171213.1            .*' /  .*' ; .*`- +'  `*'          //
-//                                       `*-*   `*-*  `*-*'                 //
-// ------------------------------------------------------------------------ //
-//  Copyright (c) 2014 - 2017 Wendy Starfall, littlemousy, Sumi Perl,       //
-//  Garvin Twine, Romka Swallowtail et al.                                  //
-// ------------------------------------------------------------------------ //
-//  This script is free software: you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published       //
-//  by the Free Software Foundation, version 2.                             //
-//                                                                          //
-//  This script is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of          //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            //
-//  GNU General Public License for more details.                            //
-//                                                                          //
-//  You should have received a copy of the GNU General Public License       //
-//  along with this script; if not, see www.gnu.org/licenses/gpl-2.0        //
-// ------------------------------------------------------------------------ //
-//  This script and any derivatives based on it must remain "full perms".   //
-//                                                                          //
-//  "Full perms" means maintaining MODIFY, COPY, and TRANSFER permissions   //
-//  in Second Life(R), OpenSimulator and the Metaverse.                     //
-//                                                                          //
-//  If these platforms should allow more fine-grained permissions in the    //
-//  future, then "full perms" will mean the most permissive possible set    //
-//  of permissions allowed by the platform.                                 //
-// ------------------------------------------------------------------------ //
-//       github.com/VirtualDisgrace/opencollar/tree/master/src/collar       //
-// ------------------------------------------------------------------------ //
-//////////////////////////////////////////////////////////////////////////////
+/*------------------------------------------------------------------------------
 
-//menu setup
-string  RESTRICTION_BUTTON          = "Restrictions"; // Name of the submenu
-string  RESTRICTIONS_CHAT_COMMAND   = "restrictions";
-string  TERMINAL_BUTTON             = "Terminal";   //rlv command terminal button for TextBox
-string  TERMINAL_CHAT_COMMAND       = "terminal";
-string  OUTFITS_BUTTON              = "Outfits";
-string  COLLAR_PARENT_MENU          = "RLV";
-string  UPMENU                      = "BACK";
-string  BACKMENU                    = "⏎";
+ RLV Suite, Build 33
+
+ Wendy's OpenCollar Distribution
+ https://github.com/wendystarfall/opencollar
+
+--------------------------------------------------------------------------------
+
+ Virtual Disgrace Collar v1.0.0 - v2.1.1 (virtualdisgrace.com):
+
+ Copyright © 2011, 2012, 2013 Wendy Starfall
+ Copyright © 2014 littlemousy, Sumi Perl, Wendy Starfall
+
+ https://github.com/WendyStarfall/opencollar/commits/master
+ https://github.com/VirtualDisgrace/opencollar/commits/master
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v4.0.0 - v6.7.5 - Peanut build 9 (virtualdisgrace.com):
+
+ Copyright © 2015 Garvin Twine, Romka Swallowtail, Wendy Starfall
+ Copyright © 2016, 2017, 2018 Garvin Twine, Wendy Starfall
+
+ https://github.com/VirtualDisgrace/opencollar/commits/master
+ https://github.com/WendyStarfall/opencollar/commits/master
+
+--------------------------------------------------------------------------------
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, see www.gnu.org/licenses/gpl-2.0
+
+------------------------------------------------------------------------------*/
+
+integer g_iBuild = 33;
+
+string  RESTRICTION_BUTTON = "Restrictions";
+string  RESTRICTIONS_CHAT_COMMAND = "restrictions";
+string  TERMINAL_BUTTON = "Terminal";
+string  TERMINAL_CHAT_COMMAND = "terminal";
+string  OUTFITS_BUTTON = "Outfits";
+string  COLLAR_PARENT_MENU = "RLV";
+string  UPMENU = "BACK";
+string  BACKMENU = "⏎";
 
 integer g_iMenuCommand;
 key     g_kMenuClicker;
@@ -66,10 +59,6 @@ key     g_kMenuClicker;
 list    g_lMenuIDs;
 integer g_iMenuStride = 3;
 
-//string g_sSettingToken                = "restrictions_";
-//string g_sGlobalToken                 = "global_";
-
-//restriction vars
 integer g_iSendRestricted;
 integer g_iReadRestricted;
 integer g_iHearRestricted;
@@ -84,82 +73,56 @@ integer g_iDazedRestricted;
 
 integer g_iSitting;
 
-string bluriness;
-
-//outfit vars
 integer g_iListener;
 integer g_iFolderRLV = 98745923;
 integer g_iFolderRLVSearch = 98745925;
-integer g_iTimeOut = 30; //timeout on viewer response commands
+integer g_iTimeOut = 30;
 integer g_iRlvOn = FALSE;
 integer g_iRlvaOn = FALSE;
 string g_sCurrentPath;
-string g_sPathPrefix = ".outfits"; //we look for outfits in here
+string g_sPathPrefix = ".outfits";
 
 
-key     g_kWearer;
-//MESSAGE MAP
-//integer CMD_ZERO = 0;
-integer CMD_OWNER                   = 500;
+key g_kWearer;
+
+integer CMD_OWNER = 500;
 integer CMD_TRUSTED = 501;
-//integer CMD_GROUP = 502;
-integer CMD_WEARER                  = 503;
+integer CMD_GROUP = 502;
+integer CMD_WEARER = 503;
 integer CMD_EVERYONE = 504;
-//integer CMD_RLV_RELAY = 507;
-integer CMD_SAFEWORD                = 510;
-integer CMD_RELAY_SAFEWORD          = 511;
-//integer CMD_BLOCKED = 520;
+integer CMD_SAFEWORD = 510;
+integer CMD_RELAY_SAFEWORD = 511;
 
-integer NOTIFY                     = 1002;
-//integer SAY                        = 1004;
-integer REBOOT                     = -1000;
-integer LINK_DIALOG                = 3;
-integer LINK_RLV                   = 4;
-integer LINK_SAVE                  = 5;
-integer LINK_UPDATE                = -10;
-integer LM_SETTING_SAVE            = 2000;
-//integer LM_SETTING_REQUEST         = 2001;
-integer LM_SETTING_RESPONSE        = 2002;
-integer LM_SETTING_DELETE          = 2003;
-integer LM_SETTING_EMPTY           = 2004;
-//integer LM_SETTING_REQUEST_NOCACHE = 2005;
+integer NOTIFY = 1002;
+integer REBOOT = -1000;
+integer LINK_DIALOG = 3;
+integer LINK_RLV = 4;
+integer LINK_SAVE = 5;
+integer LINK_UPDATE = -10;
+integer LM_SETTING_SAVE = 2000;
+integer LM_SETTING_RESPONSE = 2002;
+integer LM_SETTING_DELETE = 2003;
+integer LM_SETTING_EMPTY = 2004;
 
-// messages for creating OC menu structure
-integer MENUNAME_REQUEST           = 3000;
-integer MENUNAME_RESPONSE          = 3001;
-//integer MENUNAME_REMOVE            = 3003;
+integer MENUNAME_REQUEST = 3000;
+integer MENUNAME_RESPONSE = 3001;
 
-// messages for RLV commands
-integer RLV_CMD                    = 6000;
-integer RLV_REFRESH                = 6001; // RLV plugins should reinstate their restrictions upon receiving this message.
-integer RLV_CLEAR                  = 6002; // RLV plugins should clear their restriction lists upon receiving this message.
-integer RLV_OFF                    = 6100;
-integer RLV_ON                     = 6101;
-integer RLVA_VERSION               = 6004;
-// messages to the dialog helper
-integer DIALOG                     = -9000;
-integer DIALOG_RESPONSE            = -9001;
-integer DIALOG_TIMEOUT             = -9002;
-integer SENSORDIALOG               = -9003;
+integer RLV_CMD = 6000;
+integer RLV_CLEAR = 6002;
+integer RLV_OFF = 6100;
+integer RLV_ON = 6101;
+integer RLVA_VERSION = 6004;
+
+integer DIALOG = -9000;
+integer DIALOG_RESPONSE = -9001;
+integer DIALOG_TIMEOUT = -9002;
+integer SENSORDIALOG = -9003;
+integer BUILD_REQUEST = 17760501;
 integer g_iAuth;
 
 key g_kLastForcedSeat;
 string g_sLastForcedSeat;
 string g_sTerminalText = "\n[http://www.opencollar.at/rlv.html RLV Command Terminal]\n\nType one command per line without \"@\" sign.";
-
-/*
-integer g_iProfiled=1;
-Debug(string sStr) {
-    //if you delete the first // from the preceeding and following  lines,
-    //  profiling is off, debug is off, and the compiler will remind you to
-    //  remove the debug calls from the code, we're back to production mode
-    if (!g_iProfiled){
-        g_iProfiled=1;
-        llScriptProfiler(1);
-    }
-    llOwnerSay(llGetScriptName() + "(min free:"+(string)(llGetMemoryLimit()-llGetSPMaxMemory())+")["+(string)llGetFreeMemory()+"] :\n" + sStr);
-}
-*/
 
 Dialog(key kRCPT, string sPrompt, list lButtons, list lUtilityButtons, integer iPage, integer iAuth, string sMenuID) {
     key kMenuID = llGenerateKey();
@@ -189,7 +152,6 @@ SitMenu(key kID, integer iAuth) {
     if (g_iStandRestricted == 500) sitPrompt += "Owner.\n";
     else if (g_iStandRestricted == 501) sitPrompt += "Trusted.\n";
     else if (g_iStandRestricted == 502) sitPrompt += "Group.\n";
-
     if (g_iStandRestricted) sButton = "☑ strict`";
     else sButton = "☐ strict`";
     if (iSitting) sButton+="[Get up]`BACK";
@@ -202,11 +164,9 @@ SitMenu(key kID, integer iAuth) {
     Dialog(kID, sitPrompt+"\nChoose a seat:\n", [sButton], [], 0, iAuth, "sensor");
 }
 
-
 RestrictionsMenu(key keyID, integer iAuth) {
     string sPrompt = "\n[http://www.opencollar.at/rlv.html Restrictions]";
     list lMyButtons;
-
     if (g_iSendRestricted) lMyButtons += "☐ Send IMs";
     else lMyButtons += "☑ Send IMs";
     if (g_iReadRestricted) lMyButtons += "☐ Read IMs";
@@ -228,7 +188,6 @@ RestrictionsMenu(key keyID, integer iAuth) {
     else lMyButtons += "Dazzle";
     if (g_iDazedRestricted) lMyButtons += "Un-Daze";
     else lMyButtons += "Daze";
-
     Dialog(keyID, sPrompt, lMyButtons, ["BACK"], 0, iAuth, "restrictions");
 }
 
@@ -242,7 +201,7 @@ DoTerminalCommand(string sMessage, key kID) {
 }
 
 OutfitsMenu(key kID, integer iAuth) {
-    g_kMenuClicker = kID; //on our listen response, we need to know who to pop a dialog for
+    g_kMenuClicker = kID;
     g_iAuth = iAuth;
     g_sCurrentPath = g_sPathPrefix + "/";
     llSetTimerEvent(g_iTimeOut);
@@ -255,9 +214,8 @@ FolderMenu(key keyID, integer iAuth,string sFolders) {
     sPrompt += "\n\nCurrent Path = "+g_sCurrentPath;
     list lMyButtons = llParseString2List(sFolders,[","],[""]);
     lMyButtons = llListSort(lMyButtons, 1, TRUE);
-    // and dispay the menu
     list lStaticButtons;
-    if (g_sCurrentPath == g_sPathPrefix+"/") //If we're at root, don't bother with BACKMENU
+    if (g_sCurrentPath == g_sPathPrefix+"/")
         lStaticButtons = [UPMENU];
     else {
         if (sFolders == "") lStaticButtons = ["WEAR",UPMENU,BACKMENU];
@@ -266,14 +224,7 @@ FolderMenu(key keyID, integer iAuth,string sFolders) {
     Dialog(keyID, sPrompt, lMyButtons, lStaticButtons, 0, iAuth, "folder");
 }
 
-RemAttached(key keyID, integer iAuth,string sFolders) {
-    string sPrompt = "\n[http://www.opencollar.at/outfits.html Outfits]";
-    sPrompt += "\n\nRemove Attachment by Name";
-    list lMyButtons = llParseString2List(sFolders,[","],[""]);
-    Dialog(keyID, sPrompt, lMyButtons, [UPMENU], 0, iAuth, "remattached");
-}
-
-WearFolder (string sStr) { //function grabs g_sCurrentPath, and splits out the final directory path, attaching .core directories and passes RLV commands
+WearFolder (string sStr) {
     string sAttach ="@attachallover:"+sStr+"=force,attachallover:"+g_sPathPrefix+"/.core/=force";
     string sPrePath;
     list lTempSplit = llParseString2List(sStr,["/"],[]);
@@ -281,44 +232,33 @@ WearFolder (string sStr) { //function grabs g_sCurrentPath, and splits out the f
     sPrePath = llDumpList2String(lTempSplit,"/");
     if (g_sPathPrefix + "/" != sPrePath)
         sAttach += ",attachallover:"+sPrePath+"/.core/=force";
-   // Debug("rlv:"+sOutput);
     llOwnerSay("@remoutfit=force,detach=force");
-    llSleep(1.5); // delay for SSA
+    llSleep(1.5);
     llOwnerSay(sAttach);
 }
 
 doRestrictions(){
     if (g_iSendRestricted)     llMessageLinked(LINK_RLV,RLV_CMD,"sendim=n","vdRestrict");
     else llMessageLinked(LINK_RLV,RLV_CMD,"sendim=y","vdRestrict");
-
     if (g_iReadRestricted)     llMessageLinked(LINK_RLV,RLV_CMD,"recvim=n,viewnote=n","vdRestrict");
     else llMessageLinked(LINK_RLV,RLV_CMD,"recvim=y,viewnote=y","vdRestrict");
-
     if (g_iHearRestricted)     llMessageLinked(LINK_RLV,RLV_CMD,"recvchat=n","vdRestrict");
     else llMessageLinked(LINK_RLV,RLV_CMD,"recvchat=y","vdRestrict");
-
     if (g_iTalkRestricted)     llMessageLinked(LINK_RLV,RLV_CMD,"sendchat=n","vdRestrict");
     else llMessageLinked(LINK_RLV,RLV_CMD,"sendchat=y","vdRestrict");
-
     if (g_iTouchRestricted)    llMessageLinked(LINK_RLV,RLV_CMD,"touchall=n","vdRestrict");
     else llMessageLinked(LINK_RLV,RLV_CMD,"touchall=y","vdRestrict");
-
     if (g_iStrayRestricted)    llMessageLinked(LINK_RLV,RLV_CMD,"tplm=n,tploc=n,tplure=n,sittp=n","vdRestrict");
     else llMessageLinked(LINK_RLV,RLV_CMD,"tplm=y,tploc=y,tplure=y,sittp=y","vdRestrict");
-
     if (g_iStandRestricted) {
         if (llGetAgentInfo(g_kWearer)&AGENT_SITTING) llMessageLinked(LINK_RLV,RLV_CMD,"unsit=n","vdRestrict");
     } else llMessageLinked(LINK_RLV,RLV_CMD,"unsit=y","vdRestrict");
-
     if (g_iRummageRestricted)  llMessageLinked(LINK_RLV,RLV_CMD,"showinv=n,viewscript=n,viewtexture=n,edit=n,rez=n","vdRestrict");
     else llMessageLinked(LINK_RLV,RLV_CMD,"showinv=y,viewscript=y,viewtexture=y,edit=y,rez=y","vdRestrict");
-
     if (g_iDressRestricted)    llMessageLinked(LINK_RLV,RLV_CMD,"addattach=n,remattach=n,defaultwear=n,addoutfit=n,remoutfit=n","vdRestrict");
     else llMessageLinked(LINK_RLV,RLV_CMD,"addattach=y,remattach=y,defaultwear=y,addoutfit=y,remoutfit=y","vdRestrict");
-
     if (g_iBlurredRestricted)  llMessageLinked(LINK_RLV,RLV_CMD,"setdebug_renderresolutiondivisor:16=force","vdRestrict");
     else llMessageLinked(LINK_RLV,RLV_CMD,"setdebug_renderresolutiondivisor:1=force","vdRestrict");
-
     if (g_iDazedRestricted)    llMessageLinked(LINK_RLV,RLV_CMD,"shownames=n,showhovertextworld=n,showloc=n,showworldmap=n,showminimap=n","vdRestrict");
     else llMessageLinked(LINK_RLV,RLV_CMD,"shownames=y,showhovertextworld=y,showloc=y,showworldmap=y,showminimap=y","vdRestrict");
 }
@@ -346,25 +286,11 @@ releaseRestrictions() {
     llMessageLinked(LINK_SAVE,LM_SETTING_DELETE,"restrictions_blurred","");
     g_iDazedRestricted=FALSE;
     llMessageLinked(LINK_SAVE,LM_SETTING_DELETE,"restrictions_dazed","");
-
     doRestrictions();
-}
-
-FailSafe() {
-    string sName = llGetScriptName();
-    if ((key)sName) return;
-    if (!(llGetObjectPermMask(1) & 0x4000)
-    || !(llGetObjectPermMask(4) & 0x4000)
-    || !((llGetInventoryPermMask(sName,1) & 0xe000) == 0xe000)
-    || !((llGetInventoryPermMask(sName,4) & 0xe000) == 0xe000)
-    || sName != "oc_rlvsuite")
-        llRemoveInventory(sName);
 }
 
 UserCommand(integer iNum, string sStr, key kID, integer bFromMenu) {
     string sLowerStr=llToLower(sStr);
-    //Debug(sStr);
-    //outfits command handling
     if (sLowerStr == "outfits" || sLowerStr == "menu outfits") {
         if (g_iRlvaOn) OutfitsMenu(kID, iNum);
         else {
@@ -381,23 +307,18 @@ UserCommand(integer iNum, string sStr, key kID, integer bFromMenu) {
             llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"Oops! Outfits can't be worn while the ability to dress is restricted.",kID);
         else {
             sLowerStr = llDeleteSubString(sStr,0,llStringLength("wear ")-1);
-            if (sLowerStr) { //we have a folder to try find...
+            if (sLowerStr) {
                 llSetTimerEvent(g_iTimeOut);
                 g_iListener = llListen(g_iFolderRLVSearch, "", g_kWearer, "");
                 g_kMenuClicker = kID;
-                if (g_iRlvaOn) {
-                    llOwnerSay("@findfolders:"+sLowerStr+"="+(string)g_iFolderRLVSearch);
-                }
-                else {
-                    llOwnerSay("@findfolder:"+sLowerStr+"="+(string)g_iFolderRLVSearch);
-                }
+                if (g_iRlvaOn) llOwnerSay("@findfolders:"+sLowerStr+"="+(string)g_iFolderRLVSearch);
+                else llOwnerSay("@findfolder:"+sLowerStr+"="+(string)g_iFolderRLVSearch);
             }
         }
         if (bFromMenu) OutfitsMenu(kID, iNum);
         return;
     }
-    //restrictions command handling
-    if (iNum==CMD_WEARER) {
+    if (iNum == CMD_WEARER) {
         if (sStr == RESTRICTIONS_CHAT_COMMAND || sLowerStr == "sit" || sLowerStr == TERMINAL_CHAT_COMMAND) {
             llMessageLinked(LINK_DIALOG,NOTIFY,"1%NOACCESS%",kID);
         } else if (sLowerStr == "menu force sit" || sStr == "menu " + RESTRICTION_BUTTON || sStr == "menu " + TERMINAL_BUTTON){
@@ -411,7 +332,10 @@ UserCommand(integer iNum, string sStr, key kID, integer bFromMenu) {
     } else if (sStr == TERMINAL_CHAT_COMMAND || sStr == "menu " + TERMINAL_BUTTON) {
         if (sStr == TERMINAL_CHAT_COMMAND) g_iMenuCommand = FALSE;
         else g_iMenuCommand = TRUE;
-        Dialog(kID, g_sTerminalText, [], [], 0, iNum, "terminal");
+        if (iNum == CMD_GROUP) {
+            llMessageLinked(LINK_DIALOG,NOTIFY,"0%NOACCESS%",kID);
+            if (g_iMenuCommand) llMessageLinked(LINK_RLV,iNum,"menu "+COLLAR_PARENT_MENU,kID);
+        } else Dialog(kID, g_sTerminalText, [], [], 0, iNum, "terminal");
         return;
     } else if (sLowerStr == "restrictions back") {
         llMessageLinked(LINK_RLV, iNum, "menu " + COLLAR_PARENT_MENU, kID);
@@ -489,7 +413,6 @@ UserCommand(integer iNum, string sStr, key kID, integer bFromMenu) {
             doRestrictions();
             llMessageLinked(LINK_DIALOG,NOTIFY,"1Ability to Stray is restricted",kID);
         } else llMessageLinked(LINK_DIALOG,NOTIFY,"0%NOACCESS%",kID);
-        //2015-04-10 added Otto
     } else if (sLowerStr == "restrictions ☐ stand" || sLowerStr == "allow stand"){
         if (iNum <= g_iStandRestricted || !g_iStandRestricted) {
             g_iStandRestricted=FALSE;
@@ -578,19 +501,12 @@ UserCommand(integer iNum, string sStr, key kID, integer bFromMenu) {
         if (iNum <= g_iStandRestricted || !g_iStandRestricted) {
             llMessageLinked(LINK_RLV,RLV_CMD,"unsit=y,unsit=force","vdRestrict");
             g_iSitting = FALSE;
-            //UserCommand(iNum, "allow stand", kID, FALSE);
-            //llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"\n\n%WEARERNAME% is allowed to stand once again.\n",kID);
             llSleep(0.5);
         } else llMessageLinked(LINK_DIALOG,NOTIFY,"0%NOACCESS%",kID);
         if (bFromMenu) SitMenu(kID, iNum);
         return;
     } else if (sLowerStr == "menu force sit" || sLowerStr == "sit" || sLowerStr == "sitnow"){
         SitMenu(kID, iNum);
-       /* if (iNum <= g_iStandRestricted || !g_iStandRestricted) SitMenu(kID, iNum);
-        else {
-            llMessageLinked(LINK_DIALOG,NOTIFY,"0%NOACCESS%",kID);
-            if (bFromMenu) llMessageLinked(LINK_RLV, iNum, "menu "+COLLAR_PARENT_MENU, kID);
-        } */
         return;
     } else if (sLowerStr == "sit back") {
         if (iNum <= g_iStandRestricted || !g_iStandRestricted) {
@@ -636,12 +552,10 @@ default {
 
     state_entry() {
         g_kWearer = llGetOwner();
-        FailSafe();
-        //Debug("Starting");
     }
 
     on_rez(integer iParam) {
-        if (llGetOwner()!=g_kWearer) llResetScript();
+        if (llGetOwner() != g_kWearer) llResetScript();
         g_iRlvOn = FALSE;
         g_iRlvaOn = FALSE;
     }
@@ -663,6 +577,7 @@ default {
             else if (sStr=="restrictions_rummage") g_iRummageRestricted=FALSE;
             else if (sStr=="restrictions_blurred") g_iBlurredRestricted=FALSE;
             else if (sStr=="restrictions_dazed")   g_iDazedRestricted=FALSE;
+            else if (sStr=="restrictions_dress") g_iDressRestricted=FALSE;
         } else if (iNum == LM_SETTING_RESPONSE) {
             list lParams = llParseString2List(sStr, ["="], []);
             string sToken = llList2String(lParams, 0);
@@ -678,6 +593,7 @@ default {
                 else if (sToken=="restrictions_rummage")  g_iRummageRestricted=(integer)sValue;
                 else if (sToken=="restrictions_blurred")  g_iBlurredRestricted=(integer)sValue;
                 else if (sToken=="restrictions_dazed")    g_iDazedRestricted=(integer)sValue;
+                else if (sToken=="restrictions_dress")    g_iDressRestricted=(integer)sValue;
             }
         }
         else if (iNum >= CMD_OWNER && iNum <= CMD_WEARER) UserCommand(iNum, sStr, kID,FALSE);
@@ -702,9 +618,7 @@ default {
                 list lMenuParams = llParseStringKeepNulls(sStr, ["|"], []);
                 key kAv = (key)llList2String(lMenuParams, 0);
                 string sMessage = llList2String(lMenuParams, 1);
-                integer iPage = (integer)llList2String(lMenuParams, 2);
                 integer iAuth = (integer)llList2String(lMenuParams, 3);
-                //Debug("Sending restrictions "+sMessage);
                 string sMenu=llList2String(g_lMenuIDs, iMenuIndex + 1);
                 g_lMenuIDs = llDeleteSubList(g_lMenuIDs, iMenuIndex - 1, iMenuIndex - 2 + g_iMenuStride);
                 if (sMenu == "restrictions") UserCommand(iAuth, "restrictions "+sMessage,kAv,TRUE);
@@ -753,16 +667,16 @@ default {
             if (sStr == "LINK_DIALOG") LINK_DIALOG = iSender;
             else if (sStr == "LINK_RLV") LINK_RLV = iSender;
             else if (sStr == "LINK_SAVE") LINK_SAVE = iSender;
-        } else if (iNum == REBOOT && sStr == "reboot") llResetScript();
+        } else if (iNum == BUILD_REQUEST)
+            llMessageLinked(iSender,iNum+g_iBuild,llGetScriptName(),"");
+        else if (iNum == REBOOT && sStr == "reboot") llResetScript();
     }
 
     listen(integer iChan, string sName, key kID, string sMsg) {
-        //llListenRemove(g_iListener);
         llSetTimerEvent(0.0);
-        //Debug((string)iChan+"|"+sName+"|"+(string)kID+"|"+sMsg);
-        if (iChan == g_iFolderRLV) { //We got some folders to process
+        if (iChan == g_iFolderRLV) {
             if (llStringLength(sMsg) == 1023) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"\n\nATTENTION: Either some of the names of your outfit folders are too long, or there are too many folders in your .outfits directory. This could lead to gaps in your outfits folder index. For best operability, please consider reducing the overall amount of subfolders within the .outfits directory and use shorter names.\n",g_kWearer);
-            FolderMenu(g_kMenuClicker,g_iAuth,sMsg); //we use g_kMenuClicker to respond to the person who asked for the menu
+            FolderMenu(g_kMenuClicker,g_iAuth,sMsg);
             g_iAuth = CMD_EVERYONE;
         }
         else if (iChan == g_iFolderRLVSearch) {
@@ -772,7 +686,6 @@ default {
                 if (llSubStringIndex(sMsg,",") < 0) {
                     g_sCurrentPath = sMsg;
                     WearFolder(g_sCurrentPath);
-                    //llOwnerSay("@attachallover:"+g_sPathPrefix+"/.core/=force");
                     llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"Loading outfit #RLV/"+sMsg,kID);
                 } else {
                     string sPrompt = "\nPick one!";
@@ -788,16 +701,4 @@ default {
         llListenRemove(g_iListener);
         llSetTimerEvent(0.0);
     }
-
-    changed(integer iChange) {
-        if (iChange & CHANGED_INVENTORY) FailSafe();
-    }
-    /*    if (iChange & CHANGED_REGION) {
-            if (g_iProfiled){
-                llScriptProfiler(1);
-                Debug("profiling restarted");
-            }
-        }
-    }
-*/
 }

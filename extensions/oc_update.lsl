@@ -1,9 +1,18 @@
- /*
+/*------------------------------------------------------------------------------
 
- Copyright (c) 2017 virtualdisgrace.com
+ Update, Build 2
+
+ Wendy's OpenCollar Distribution
+ https://github.com/wendystarfall/opencollar
+
+--------------------------------------------------------------------------------
+
+ Copyright © 2017, 2018 virtualdisgrace.com
+
+--------------------------------------------------------------------------------
 
  Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License. 
+ you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
@@ -13,13 +22,16 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- 
- */
 
-// This plugin can be used to receive updates through the OpenCollar Six
-// Installer. The user has to confirm before any installations can start.
-// Whether patches from the upstream can be installed or not is optional.
+--------------------------------------------------------------------------------
 
+ This plugin can be used to receive updates through the OpenCollar Six
+ Installer. The user has to confirm before any installations can start.
+ Whether patches from the upstream can be installed or not is optional.
+
+------------------------------------------------------------------------------*/
+
+integer build = 2;
 integer CMD_WEARER = 503;
 integer NOTIFY = 1002;
 integer REBOOT = -1000;
@@ -27,6 +39,7 @@ integer LINK_DIALOG = 3;
 integer LINK_UPDATE = -10;
 integer DIALOG = -9000;
 integer DIALOG_RESPONSE = -9001;
+integer BUILD_REQUEST = 17760501;
 
 key wearer;
 integer upstream;
@@ -69,7 +82,9 @@ default {
             }
         } else if (num == LINK_UPDATE) {
             if (str == "LINK_DIALOG") LINK_DIALOG = sender;
-        } else if (num == REBOOT && str == "reboot") llResetScript();
+        } else if (num == BUILD_REQUEST)
+            llMessageLinked(sender,num+build,llGetScriptName(),"");
+        else if (num == REBOOT && str == "reboot") llResetScript();
     }
     on_rez(integer start) {
         if (llGetOwner() != wearer) llResetScript();

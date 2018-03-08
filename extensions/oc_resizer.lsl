@@ -1,65 +1,98 @@
-//////////////////////////////////////////////////////////////////////////////
-//                                                                          //
-//       _   ___     __            __  ___  _                               //
-//      | | / (_)___/ /___ _____ _/ / / _ \(_)__ ___ ________ ________      //
-//      | |/ / / __/ __/ // / _ `/ / / // / (_-</ _ `/ __/ _ `/ __/ -_)     //
-//      |___/_/_/  \__/\_,_/\_,_/_/ /____/_/___/\_, /_/  \_,_/\__/\__/      //
-//                                             /___/                        //
-//                                                                          //
-//                                        _                                 //
-//                                        \`*-.                             //
-//                                         )  _`-.                          //
-//                                        .  : `. .                         //
-//                                        : _   '  \                        //
-//                                        ; *` _.   `*-._                   //
-//                                        `-.-'          `-.                //
-//                                          ;       `       `.              //
-//                                          :.       .        \             //
-//                                          . \  .   :   .-'   .            //
-//                                          '  `+.;  ;  '      :            //
-//                                          :  '  |    ;       ;-.          //
-//                                          ; '   : :`-:     _.`* ;         //
-//          Resizer - 161030.1           .*' /  .*' ; .*`- +'  `*'          //
-//                                       `*-*   `*-*  `*-*'                 //
-// ------------------------------------------------------------------------ //
-//  Copyright (c) 2008 - 2016 Nandana Singh, Lulu Pink, Garvin Twine,       //
-//  Cleo Collins, Master Starship, Joy Stipe, Wendy Starfall, littlemousy,  //
-//  Romka Swallowtail et al.                                                //
-// ------------------------------------------------------------------------ //
-//  This script is free software: you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published       //
-//  by the Free Software Foundation, version 2.                             //
-//                                                                          //
-//  This script is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of          //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            //
-//  GNU General Public License for more details.                            //
-//                                                                          //
-//  You should have received a copy of the GNU General Public License       //
-//  along with this script; if not, see www.gnu.org/licenses/gpl-2.0        //
-// ------------------------------------------------------------------------ //
-//  This script and any derivatives based on it must remain "full perms".   //
-//                                                                          //
-//  "Full perms" means maintaining MODIFY, COPY, and TRANSFER permissions   //
-//  in Second Life(R), OpenSimulator and the Metaverse.                     //
-//                                                                          //
-//  If these platforms should allow more fine-grained permissions in the    //
-//  future, then "full perms" will mean the most permissive possible set    //
-//  of permissions allowed by the platform.                                 //
-// ------------------------------------------------------------------------ //
-//       github.com/VirtualDisgrace/opencollar/tree/master/src/collar       //
-// ------------------------------------------------------------------------ //
-//////////////////////////////////////////////////////////////////////////////
+/*------------------------------------------------------------------------------
 
-// Based on a split of OpenCollar - appearance by Romka Swallowtail
-// Virtual Disgrace - Resizer is derivative of OpenCollar - adjustment
+ Resizer, Build 12
+
+ Wendy's OpenCollar Distribution
+ https://github.com/wendystarfall/opencollar
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v1.000 - v3.600 (OpenCollar - submission set free):
+
+ Copyright © 2008, 2009, 2010 Cleo Collins, Garvin Twine, Lulu Pink,
+ Master Starship, Nandana Singh, et al.
+
+ The project in its original form concluded on October 19, 2011. Everything past
+ this date is a derivative of OpenCollar's original SVN trunk from Google Code.
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v3.700 - v3.720 (nirea's ocupdater):
+
+ Copyright © 2011 nirea, Satomi Ahn
+
+ https://github.com/OpenCollarUpdates/ocupdater/commits/release
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v3.750 - v3.809 (Satomi's OpenCollarUpdates):
+
+ Copyright © 2012 Satomi Ahn
+
+ https://github.com/OpenCollarUpdates/ocupdater/commits/3.8
+ https://github.com/OpenCollarUpdates/ocupdater/commits/beta
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v3.809 - v3.843 (Joy's OpenCollar Evolution):
+
+ Copyright © 2013 Joy Stipe
+
+ https://github.com/JoyStipe/ocupdater/commits/Project_Evolution
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v3.844 - v3.998 (Wendy's OpenCollar API 3.9):
+
+ Copyright © 2013 Wendy Starfall
+ Copyright © 2014 littlemousy, Romka Swallowtail, Wendy Starfall
+
+ https://github.com/OpenCollar/opencollar/commits/master
+ https://github.com/WendyStarfall/opencollar/commits/master
+
+--------------------------------------------------------------------------------
+
+ Virtual Disgrace Collar v1.0.0 - v2.1.1 (virtualdisgrace.com):
+
+ Copyright © 2011, 2012, 2013 Wendy Starfall
+ Copyright © 2014 littlemousy, Wendy Starfall
+
+ https://github.com/WendyStarfall/opencollar/commits/master
+ https://github.com/VirtualDisgrace/opencollar/commits/master
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v4.0.0 - v6.7.5 - Peanut build 9 (virtualdisgrace.com):
+
+ Copyright © 2015, 2016 Garvin Twine, Romka Swallowtail, Wendy Starfall
+ Copyright © 2017, 2018 Garvin Twine, Wendy Starfall
+
+ https://github.com/VirtualDisgrace/opencollar/commits/master
+ https://github.com/WendyStarfall/opencollar/commits/master
+
+--------------------------------------------------------------------------------
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, see www.gnu.org/licenses/gpl-2.0
+
+------------------------------------------------------------------------------*/
+
+integer g_iBuild = 12;
 
 string g_sSubMenu = "Size/Position";
 string g_sParentMenu = "Settings";
 
-//string g_sDeviceType = "collar";
-
-list g_lMenuIDs;//3-strided list of avkey, dialogid, menuname
+list g_lMenuIDs;
 integer g_iMenuStride = 3;
 
 string POSMENU = "Position";
@@ -69,39 +102,21 @@ string SIZEMENU = "Size";
 float g_fSmallNudge=0.0005;
 float g_fMediumNudge=0.005;
 float g_fLargeNudge=0.05;
-float g_fNudge=0.005; // g_fMediumNudge;
+float g_fNudge=0.005;
 float g_fRotNudge;
 
-// SizeScale
+list SIZEMENU_BUTTONS = [ "-1%", "-2%", "-5%", "-10%", "+1%", "+2%", "+5%", "+10%", "100%" ];
+list g_lSizeFactors = [-1, -2, -5, -10, 1, 2, 5, 10, -1000];
+list g_lPrimStartSizes;
+integer g_iScaleFactor = 100;
+integer g_iSizedByScript;
 
-list SIZEMENU_BUTTONS = [ "-1%", "-2%", "-5%", "-10%", "+1%", "+2%", "+5%", "+10%", "100%" ]; // buttons for menu
-list g_lSizeFactors = [-1, -2, -5, -10, 1, 2, 5, 10, -1000]; // actual size factors
-list g_lPrimStartSizes; // area for initial prim sizes (stored on rez)
-integer g_iScaleFactor = 100; // the size on rez is always regarded as 100% to preven problem when scaling an item +10% and than - 10 %, which would actuall lead to 99% of the original size
-integer g_iSizedByScript = FALSE; // prevent reseting of the script when the item has been chnged by the script
-
-//MESSAGE MAP
-//integer CMD_ZERO = 0;
 integer CMD_OWNER = 500;
-//integer CMD_TRUSTED = 501;
-//integer CMD_GROUP = 502;
 integer CMD_WEARER = 503;
-//integer CMD_EVERYONE = 504;
-//integer CMD_RLV_RELAY = 507;
-//integer CMD_SAFEWORD = 510;
-//integer CMD_RELAY_SAFEWORD = 511;
-//integer CMD_BLOCKED = 520;
 
 integer NOTIFY = 1002;
-//integer SAY = 1004;
-//integer LM_SETTING_SAVE = 2000;
-//integer LM_SETTING_REQUEST = 2001;
-//integer LM_SETTING_RESPONSE = 2002;
-//integer LM_SETTING_DELETE = 2003;
-//integer LM_SETTING_EMPTY = 2004;
-integer REBOOT              = -1000;
-integer LINK_DIALOG         = 3;
-integer LINK_UPDATE = -10;
+integer REBOOT = -1000;
+integer LINK_DIALOG = 3;
 integer MENUNAME_REQUEST = 3000;
 integer MENUNAME_RESPONSE = 3001;
 integer MENUNAME_REMOVE = 3003;
@@ -109,32 +124,15 @@ integer MENUNAME_REMOVE = 3003;
 integer DIALOG = -9000;
 integer DIALOG_RESPONSE = -9001;
 integer DIALOG_TIMEOUT = -9002;
+integer BUILD_REQUEST = 17760501;
 
 string UPMENU = "BACK";
 
 key g_kWearer;
 
-//string g_sSettingToken = "resizer_";
-//string g_sGlobalToken = "global_";
-
-/*
-integer g_iProfiled=1;
-Debug(string sStr) {
-    //if you delete the first // from the preceeding and following  lines,
-    //  profiling is off, debug is off, and the compiler will remind you to
-    //  remove the debug calls from the code, we're back to production mode
-    if (!g_iProfiled){
-        g_iProfiled=1;
-        llScriptProfiler(1);
-    }
-    llOwnerSay(llGetScriptName() + "(min free:"+(string)(llGetMemoryLimit()-llGetSPMaxMemory())+")["+(string)llGetFreeMemory()+"] :\n" + sStr);
-}
-*/
-
 Dialog(key kRCPT, string sPrompt, list lChoices, list lUtilityButtons, integer iPage, integer iAuth, string sMenuType) {
     key kMenuID = llGenerateKey();
     llMessageLinked(LINK_DIALOG, DIALOG, (string)kRCPT + "|" + sPrompt + "|" + (string)iPage + "|" + llDumpList2String(lChoices, "`") + "|" + llDumpList2String(lUtilityButtons, "`") + "|" + (string)iAuth, kMenuID);
-    //Debug("Made menu.");
     integer iIndex = llListFindList(g_lMenuIDs, [kRCPT]);
     if (~iIndex) g_lMenuIDs = llListReplaceList(g_lMenuIDs, [kRCPT, kMenuID, sMenuType], iIndex, iIndex + g_iMenuStride - 1);
     else g_lMenuIDs += [kRCPT, kMenuID, sMenuType];
@@ -165,7 +163,6 @@ integer MinMaxScaled(vector vSize, float fScale) {
     }
     return FALSE;
 }
-
 
 Store_StartScaleLoop() {
     g_lPrimStartSizes = [];
@@ -202,10 +199,9 @@ ScalePrimLoop(integer iScale, integer iRezSize, key kAV) {
         } else if (MinMaxScaled(fScale * vSize, fScale) || !iRezSize) {
             llMessageLinked(LINK_DIALOG,NOTIFY,"1"+"The object cannot be scaled as you requested; prims would surpass minimum or maximum size.",kAV);
             return;
-        } else llSetScale(fScale * vSize); // not linked prim
+        } else llSetScale(fScale * vSize);
     } else {
         if  (!iRezSize) {
-            // first some checking
             for (iPrimIndex = 1; iPrimIndex <= llGetNumberOfPrims(); iPrimIndex++ ) {
                 lPrimParams = llGetLinkPrimitiveParams( iPrimIndex, [PRIM_SIZE, PRIM_POSITION]);
                 vPrimScale = llList2Vector(g_lPrimStartSizes, (iPrimIndex  - 1)*2);
@@ -236,7 +232,6 @@ ScalePrimLoop(integer iScale, integer iRezSize, key kAV) {
 }
 
 ForceUpdate() {
-     //workaround for https://jira.secondlife.com/browse/VWR-1168
     llSetText(".", <1,1,1>, 1.0);
     llSetText("", <1,1,1>, 1.0);
 }
@@ -281,20 +276,9 @@ RotMenu(key kAv, integer iAuth) {
     Dialog(kAv, sPrompt, lMyButtons, [UPMENU], 0, iAuth,ROTMENU);
 }
 
-FailSafe() {
-    string sName = llGetScriptName();
-    if ((key)sName) return;
-    if (!(llGetObjectPermMask(1) & 0x4000)
-    || !(llGetObjectPermMask(4) & 0x4000)
-    || !((llGetInventoryPermMask(sName,1) & 0xe000) == 0xe000)
-    || !((llGetInventoryPermMask(sName,4) & 0xe000) == 0xe000)
-    || sName != "oc_resizer")
-        llRemoveInventory(sName);
-}
-
 PosMenu(key kAv, integer iAuth) {
     string sPrompt = "\nHere you can nudge the %DEVICETYPE% in place.\n\nCurrent nudge strength is: ";
-    list lMyButtons = ["left ←", "up ↑", "forward ↳", "right →", "down ↓", "backward ↲"];// ria iChange
+    list lMyButtons = ["left ←", "up ↑", "forward ↳", "right →", "down ↓", "backward ↲"];
     if (g_fNudge!=g_fSmallNudge) lMyButtons+=["▁"];
     else sPrompt += "▁";
     if (g_fNudge!=g_fMediumNudge) lMyButtons+=["▁ ▂"];
@@ -317,30 +301,28 @@ DoMenu(key kAv, integer iAuth) {
     Dialog(kAv, sPrompt, lMyButtons, [UPMENU], 0, iAuth,g_sSubMenu);
 }
 
-UserCommand(integer iNum, string sStr, key kID) {
-    list lParams = llParseString2List(sStr, [" "], []);
-    string sCommand = llToLower(llList2String(lParams, 0));
-    string sValue = llToLower(llList2String(lParams, 1));
-    if (sCommand == "menu" && llGetSubString(sStr, 5, -1) == g_sSubMenu) {
-        if (kID!=g_kWearer && iNum!=CMD_OWNER) {
+UserCommand(integer iAuth, string sStr, key kID) {
+    sStr = llToLower(sStr);
+    if (sStr == "menu "+llToLower(g_sSubMenu)) {
+        if (kID != g_kWearer && iAuth != CMD_OWNER) {
             llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
-            llMessageLinked(LINK_SET, iNum, "menu " + g_sParentMenu, kID);
-        } else DoMenu(kID, iNum);
+            llMessageLinked(LINK_SET, iAuth, "menu " + g_sParentMenu, kID);
+        } else DoMenu(kID, iAuth);
     } else if (sStr == "appearance") {
-        if (kID!=g_kWearer && iNum!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
-        else DoMenu(kID, iNum);
+        if (kID!=g_kWearer && iAuth!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
+        else DoMenu(kID, iAuth);
     } else if (sStr == "rotation") {
-        if (kID!=g_kWearer && iNum!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
-        else RotMenu(kID, iNum);
+        if (kID!=g_kWearer && iAuth!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
+        else RotMenu(kID, iAuth);
     } else if (sStr == "position") {
-        if (kID!=g_kWearer && iNum!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
-        else PosMenu(kID, iNum);
+        if (kID!=g_kWearer && iAuth!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
+        else PosMenu(kID, iAuth);
     } else if (sStr == "size") {
-        if (kID!=g_kWearer && iNum!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
-        else SizeMenu(kID, iNum);
+        if (kID!=g_kWearer && iAuth!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
+        else SizeMenu(kID, iAuth);
     } else if (sStr == "rm resizer") {
-        if (kID!=g_kWearer && iNum!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
-        else Dialog(kID, "\nDo you really want to remove the Resizer?", ["Yes","No","Cancel"], [], 0, iNum,"rmresizer");
+        if (kID!=g_kWearer && iAuth!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
+        else Dialog(kID, "\nDo you really want to remove the Resizer?", ["Yes","No","Cancel"], [], 0, iAuth,"rmresizer");
     }
 }
 
@@ -350,12 +332,9 @@ default {
     }
 
     state_entry() {
-        //llSetMemoryLimit(40960);  //2015-05-16 (5612 bytes free)
         g_kWearer = llGetOwner();
-        FailSafe();
-        g_fRotNudge = PI / 32.0;//have to do this here since we can't divide in a global var declaration
+        g_fRotNudge = PI / 32.0;
         Store_StartScaleLoop();
-        //Debug("Starting");
     }
 
     link_message(integer iSender, integer iNum, string sStr, key kID) {
@@ -369,11 +348,8 @@ default {
                 list lMenuParams = llParseString2List(sStr, ["|"], []);
                 key kAv = (key)llList2String(lMenuParams, 0);
                 string sMessage = llList2String(lMenuParams, 1);
-                integer iPage = (integer)llList2String(lMenuParams, 2);
                 integer iAuth = (integer)llList2String(lMenuParams, 3);
                 string sMenuType = llList2String(g_lMenuIDs, iMenuIndex + 1);
-                //remove stride from g_lMenuIDs
-                //we have to subtract from the index because the dialog id comes in the middle of the stride
                 g_lMenuIDs = llDeleteSubList(g_lMenuIDs, iMenuIndex - 1, iMenuIndex - 2 + g_iMenuStride);
                 if (sMenuType == g_sSubMenu) {
                     if (sMessage == UPMENU) llMessageLinked(LINK_ROOT, iAuth, "menu " + g_sParentMenu, kAv);
@@ -437,17 +413,14 @@ default {
         }
         else if (iNum == DIALOG_TIMEOUT) {
             integer iMenuIndex = llListFindList(g_lMenuIDs, [kID]);
-            if (iMenuIndex != -1) {
-                //remove stride from g_lMenuIDs
-                //we have to subtract from the index because the dialog id comes in the middle of the stride
+            if (iMenuIndex != -1)
                 g_lMenuIDs = llDeleteSubList(g_lMenuIDs, iMenuIndex - 1, iMenuIndex - 2 + g_iMenuStride);
-            }
-        } else if (iNum == LINK_UPDATE && sStr == "LINK_DIALOG") LINK_DIALOG = iSender;
+        } else if (iNum == BUILD_REQUEST)
+            llMessageLinked(iSender,iNum+g_iBuild,llGetScriptName(),"");
         else if (iNum == REBOOT && sStr == "reboot") llResetScript();
     }
 
     timer() {
-        // the timer is needed as the changed_size even is triggered twice
         llSetTimerEvent(0);
         if (g_iSizedByScript) g_iSizedByScript = FALSE;
     }
@@ -458,14 +431,5 @@ default {
             else Store_StartScaleLoop();
         }
         if (iChange & (CHANGED_SHAPE | CHANGED_LINK)) Store_StartScaleLoop();
-        if (iChange & CHANGED_INVENTORY) FailSafe();
-/*
-        if (iChange & CHANGED_REGION) {
-            if (g_iProfiled) {
-                llScriptProfiler(1);
-                Debug("profiling restarted");
-            }
-        }
-*/
     }
  }

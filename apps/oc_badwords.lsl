@@ -1,75 +1,104 @@
-//////////////////////////////////////////////////////////////////////////////
-//                                                                          //
-//              ____                   ______      ____                     //
-//             / __ \____  ___  ____  / ____/___  / / /___ ______           //
-//            / / / / __ \/ _ \/ __ \/ /   / __ \/ / / __ `/ ___/           //
-//           / /_/ / /_/ /  __/ / / / /___/ /_/ / / / /_/ / /               //
-//           \____/ .___/\___/_/ /_/\____/\____/_/_/\__,_/_/                //
-//               /_/                                                        //
-//                                                                          //
-//                        ,^~~~-.         .-~~~"-.                          //
-//                       :  .--. \       /  .--.  \                         //
-//                       : (    .-`<^~~~-: :    )  :                        //
-//                       `. `-,~            ^- '  .'                        //
-//                         `-:                ,.-~                          //
-//                          .'                  `.                          //
-//                         ,'   @   @            |                          //
-//                         :    __               ;                          //
-//                      ...{   (__)          ,----.                         //
-//                     /   `.              ,' ,--. `.                       //
-//                    |      `.,___   ,      :    : :                       //
-//                    |     .'    ~~~~       \    / :                       //
-//                     \.. /               `. `--' .'                       //
-//                        |                  ~----~                         //
-//                          Badwords - 161029.1                             //
-// ------------------------------------------------------------------------ //
-//  Copyright (c) 2008 - 2016 Lulu Pink, Nandana Singh, Garvin Twine,       //
-//  Cleo Collins, Satomi Ahn, Joy Stipe, Wendy Starfall, Romka Swallowtail, //
-//  littlemousy, Karo Weirsider, Nori Ovis, Ray Zopf et al.                 //
-// ------------------------------------------------------------------------ //
-//  This script is free software: you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published       //
-//  by the Free Software Foundation, version 2.                             //
-//                                                                          //
-//  This script is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of          //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            //
-//  GNU General Public License for more details.                            //
-//                                                                          //
-//  You should have received a copy of the GNU General Public License       //
-//  along with this script; if not, see www.gnu.org/licenses/gpl-2.0        //
-// ------------------------------------------------------------------------ //
-//  This script and any derivatives based on it must remain "full perms".   //
-//                                                                          //
-//  "Full perms" means maintaining MODIFY, COPY, and TRANSFER permissions   //
-//  in Second Life(R), OpenSimulator and the Metaverse.                     //
-//                                                                          //
-//  If these platforms should allow more fine-grained permissions in the    //
-//  future, then "full perms" will mean the most permissive possible set    //
-//  of permissions allowed by the platform.                                 //
-// ------------------------------------------------------------------------ //
-//       github.com/VirtualDisgrace/opencollar/tree/master/src/spares       //
-// ------------------------------------------------------------------------ //
-//////////////////////////////////////////////////////////////////////////////
+/*------------------------------------------------------------------------------
+
+ Legacy Badwords, Build 14
+
+ Wendy's OpenCollar Distribution
+ https://github.com/wendystarfall/opencollar
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v1.000 - v3.600 (OpenCollar - submission set free):
+
+ Copyright © 2008, 2009, 2010 Cleo Collins, Garvin Twine, Lulu Pink,
+ Nandana Singh, et al.
+
+ The project in its original form concluded on October 19, 2011. Everything past
+ this date is a derivative of OpenCollar's original SVN trunk from Google Code.
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v3.700 - v3.720 (nirea's ocupdater):
+
+ Copyright © 2011 nirea, Satomi Ahn
+
+ https://github.com/OpenCollarUpdates/ocupdater/commits/release
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v3.750 - v3.809 (Satomi's OpenCollarUpdates):
+
+ Copyright © 2012 Satomi Ahn
+
+ https://github.com/OpenCollarUpdates/ocupdater/commits/3.8
+ https://github.com/OpenCollarUpdates/ocupdater/commits/beta
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v3.809 - v3.843 (Joy's OpenCollar Evolution):
+
+ Copyright © 2013 Joy Stipe
+
+ https://github.com/JoyStipe/ocupdater/commits/Project_Evolution
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v3.844 - v3.998 (Wendy's OpenCollar API 3.9):
+
+ Copyright © 2013 Karo Weirsider, Nori Ovis, Ray Zopf, Wendy Starfall
+ Copyright © 2014 littlemousy, Romka Swallowtail, Wendy Starfall
+
+ https://github.com/OpenCollar/opencollar/commits/master
+ https://github.com/WendyStarfall/opencollar/commits/master
+
+--------------------------------------------------------------------------------
+
+ Virtual Disgrace Collar v1.0.0 - v2.1.1 (virtualdisgrace.com):
+
+ Copyright © 2011, 2012, 2013 Wendy Starfall
+ Copyright © 2014 littlemousy, Wendy Starfall
+
+ https://github.com/WendyStarfall/opencollar/commits/master
+ https://github.com/VirtualDisgrace/opencollar/commits/master
+
+--------------------------------------------------------------------------------
+
+ OpenCollar v4.0.0 - v6.7.5 - Peanut build 9 (virtualdisgrace.com):
+
+ Copyright © 2015, 2016 Garvin Twine, Romka Swallowtail, Wendy Starfall
+ Copyright © 2018 Garvin Twine, Wendy Starfall
+
+ https://github.com/VirtualDisgrace/opencollar/commits/master
+ https://github.com/WendyStarfall/opencollar/commits/master
+
+--------------------------------------------------------------------------------
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, see www.gnu.org/licenses/gpl-2.0
+
+------------------------------------------------------------------------------*/
+
+integer g_iBuild = 14;
 
 string g_sAppVersion = "¹⋅³";
 
-//MESSAGE MAP
-//integer CMD_ZERO = 0;
 integer CMD_OWNER = 500;
-//integer CMD_TRUSTED = 501;
-//integer CMD_GROUP = 502;
 integer CMD_WEARER = 503;
-//integer CMD_EVERYONE = 504;
-//integer CMD_RLV_RELAY = 507;
 integer CMD_SAFEWORD = 510;
-//integer CMD_BLOCKED = 520;
 integer APPOVERRIDE = 777;
 integer NOTIFY = 1002;
 integer SAY = 1004;
 integer REBOOT = -1000;
 integer LINK_DIALOG = 3;
-//integer LINK_RLV = 4;
 integer LINK_SAVE = 5;
 integer LINK_ANIM = 6;
 integer LINK_UPDATE = -10;
@@ -89,6 +118,7 @@ integer ANIM_LIST_RESPONSE = 7003;
 integer DIALOG = -9000;
 integer DIALOG_RESPONSE = -9001;
 integer DIALOG_TIMEOUT = -9002;
+integer BUILD_REQUEST = 17760501;
 
 string g_sParentMenu = "Apps";
 string g_sSubMenu = "Badwords";
@@ -112,36 +142,18 @@ integer g_iIsEnabled=0;
 integer g_iHasSworn = FALSE;
 
 string g_sSettingToken = "badwords_";
-//string g_sGlobalToken = "global_";
-
-/*
-integer g_iProfiled=1;
-Debug(string sStr) {
-    //if you delete the first // from the preceeding and following  lines,
-    //  profiling is off, debug is off, and the compiler will remind you to
-    //  remove the debug calls from the code, we're back to production mode
-    if (!g_iProfiled){
-        g_iProfiled=1;
-        llScriptProfiler(1);
-    }
-    llOwnerSay(llGetScriptName() + "(min free:"+(string)(llGetMemoryLimit()-llGetSPMaxMemory())+")["+(string)llGetFreeMemory()+"] :\n" + sStr);
-}
-*/
 
 Dialog(key kID, string sPrompt, list lChoices, list lUtilityButtons, integer iPage, integer iAuth, string sName) {
     key kMenuID = llGenerateKey();
     llMessageLinked(LINK_DIALOG, DIALOG, (string)kID + "|" + sPrompt + "|" + (string)iPage + "|" + llDumpList2String(lChoices, "`") + "|" + llDumpList2String(lUtilityButtons, "`") + "|" + (string)iAuth, kMenuID);
-
     integer iIndex = llListFindList(g_lMenuIDs, [kID]);
     if (~iIndex) g_lMenuIDs = llListReplaceList(g_lMenuIDs, [kID, kMenuID, sName], iIndex, iIndex + g_iMenuStride - 1);
     else g_lMenuIDs += [kID, kMenuID, sName];
-    //Debug("Made "+sName+" menu.");
 }
 
-
 ListenControl() {
-    if(g_iIsEnabled && llGetListLength(g_lBadWords)) g_iListenerHandle = llListen(0, "", g_kWearer, "");
-    else llListenRemove(g_iListenerHandle);
+    llListenRemove(g_iListenerHandle);
+    if (g_iIsEnabled && llGetListLength(g_lBadWords)) g_iListenerHandle = llListen(0,"",g_kWearer,"");
 }
 
 string DePunctuate(string sStr) {
@@ -186,34 +198,22 @@ ParseAnimList(string sStr) {
     } while (i>0);
 }
 
-FailSafe() {
-    string sName = llGetScriptName();
-    if ((key)sName) return;
-    if (!(llGetObjectPermMask(1) & 0x4000)
-    || !(llGetObjectPermMask(4) & 0x4000)
-    || !((llGetInventoryPermMask(sName,1) & 0xe000) == 0xe000)
-    || !((llGetInventoryPermMask(sName,4) & 0xe000) == 0xe000)
-    || sName != "oc_badwords")
-        llRemoveInventory(sName);
-}
-
-UserCommand(integer iNum, string sStr, key kID, integer remenu) { // here iNum: auth value, sStr: user command, kID: avatar id
-    //Debug("Got command:"+sStr);
-    sStr=llStringTrim(sStr,STRING_TRIM);
+UserCommand(integer iAuth, string sStr, key kID, integer remenu) {
+    sStr= llStringTrim(sStr,STRING_TRIM);
     list lParams = llParseString2List(sStr, [" "], []);
     string sCommand = llList2String(lParams, 0);
     if (llToLower(sStr) == "badwords" || llToLower(sStr) == "menu badwords") {
-        MenuBadwords(kID, iNum);
+        MenuBadwords(kID, iAuth);
     } else if (sStr == "rm badwords") {
-        if (kID!=g_kWearer && iNum!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
-        else Dialog(kID, "\nDo you really want to uninstall the "+g_sSubMenu+" App?", ["Yes","No", "Cancel"], [], 0, iNum,"rmbadwords");
+        if (kID!=g_kWearer && iAuth!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
+        else Dialog(kID, "\nDo you really want to uninstall the "+g_sSubMenu+" App?", ["Yes","No", "Cancel"], [], 0, iAuth,"rmbadwords");
     } else if (llToLower(sCommand)=="badwords"){
-        if (iNum != CMD_OWNER) {
+        if (iAuth != CMD_OWNER) {
             llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
             return;
         }
         sCommand = llToLower(llList2String(lParams, 1));
-        if (sCommand == "add") {  //support owner adding words
+        if (sCommand == "add") {
             list lNewBadWords = llDeleteSubList(lParams, 0, 1);
             if (llGetListLength(lNewBadWords)){
                 while (llGetListLength(lNewBadWords)){
@@ -236,16 +236,16 @@ UserCommand(integer iNum, string sStr, key kID, integer remenu) { // here iNum: 
                     llMessageLinked(LINK_SAVE, LM_SETTING_SAVE, g_sSettingToken+"words=" + llDumpList2String(g_lBadWords, ","), "");
                     llMessageLinked(LINK_DIALOG,NOTIFY,"1"+WordPrompt(),kID);
                 }
-                if (remenu) MenuBadwords(kID,iNum);
+                if (remenu) MenuBadwords(kID,iAuth);
             } else {
                 string sText = "\n- Submit the new badword in the field below.\n- Submit a blank field to go back.";
-                Dialog(kID, sText, [], [], 0, iNum, "BadwordsAdd");
+                Dialog(kID, sText, [], [], 0, iAuth, "BadwordsAdd");
             }
-        } else if (sCommand == "animation") {  //Get all text after the command, strip spaces from start and end
-            if (llGetListLength(lParams)>2){
+        } else if (sCommand == "animation") {
+            if (llGetListLength(lParams) > 2) {
                 integer iPos=llSubStringIndex(llToLower(sStr),"on");
                 string sName = llStringTrim(llGetSubString(sStr, iPos+2, -1),STRING_TRIM);
-                if(sName == "Default") {
+                if (sName == "Default") {
                     if (g_iDefaultAnim) sName = "~shock";
                     else sName = llList2String(g_lAnims,0);
                 }
@@ -254,16 +254,16 @@ UserCommand(integer iNum, string sStr, key kID, integer remenu) { // here iNum: 
                     llMessageLinked(LINK_SAVE, LM_SETTING_SAVE, g_sSettingToken+"animation=" + g_sBadWordAnim, "");
                     llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"Punishment animation for bad words is now '" + g_sBadWordAnim + "'.",kID);
                 } else llMessageLinked(LINK_DIALOG,NOTIFY,"0"+" is not a valid animation name.",kID);
-                if (remenu) MenuBadwords(kID,iNum);
+                if (remenu) MenuBadwords(kID,iAuth);
             } else {
                 list lPoseList = g_lAnims;
                 if (g_iDefaultAnim) lPoseList = ["Default"] + lPoseList;
                 string sText = "Current punishment animation is: "+g_sBadWordAnim+"\n\n";
                 sText += "Select a new animation to use as a punishment.\n\n";
-                Dialog(kID, sText, lPoseList, ["BACK"],0, iNum, "BadwordsAnimation");
+                Dialog(kID, sText, lPoseList, ["BACK"],0, iAuth, "BadwordsAnimation");
             }
-        } else if (sCommand == "sound") {  //Get all text after the command, strip spaces from start and end
-            if (llGetListLength(lParams)>2){
+        } else if (sCommand == "sound") {
+            if (llGetListLength(lParams) > 2){
                 integer iPos=llSubStringIndex(llToLower(sStr),"nd");
                 string sName = llStringTrim(llGetSubString(sStr, iPos+2, -1),STRING_TRIM);
                 if (sName == "silent") llMessageLinked(LINK_DIALOG,NOTIFY,"0"+ "Punishment will be silent.",kID);
@@ -275,29 +275,28 @@ UserCommand(integer iNum, string sStr, key kID, integer remenu) { // here iNum: 
                 }
                 g_sBadWordSound = sName;
                 llMessageLinked(LINK_SAVE, LM_SETTING_SAVE, g_sSettingToken+"sound=" + g_sBadWordSound, "");
-                if (remenu) MenuBadwords(kID,iNum);
+                if (remenu) MenuBadwords(kID,iAuth);
             } else {
                 list lSoundList = ["Default","silent"];
                 integer iMax = llGetInventoryNumber(INVENTORY_SOUND);
                 integer i;
                 string sName;
-                for (i=0;i<iMax;i++) {
-                    sName=llGetInventoryName(INVENTORY_SOUND, i);
-            //check here if the sound start with ~ or for some reason does not get a name returned (spares to check that all again in the menu ;)
-                    if (sName != "" && llGetSubString(sName, 0, 0) != "~") lSoundList+=[sName];
+                for (;i < iMax; ++i) {
+                    sName = llGetInventoryName(INVENTORY_SOUND, i);
+                    if (sName != "" && !llSubStringIndex(sName,"~")) lSoundList += [sName];
                 }
                 string sText = "Current sound is: "+g_sBadWordSound+"\n\n";
                 sText += "Select a new sound to use.\n\n";
-                Dialog(kID, sText, lSoundList, ["BACK"],0, iNum, "BadwordsSound");
+                Dialog(kID, sText, lSoundList, ["BACK"],0, iAuth, "BadwordsSound");
             }
         } else if (sCommand == "penance") {
-            if (llGetListLength(lParams)>2){
-                integer iPos=llSubStringIndex(llToLower(sStr),"ce");
+            if (llGetListLength(lParams) > 2){
+                integer iPos = llSubStringIndex(llToLower(sStr),"ce");
                 string sPenance = llStringTrim(llGetSubString(sStr, iPos+2, -1),STRING_TRIM);
                 integer i;
                 list lTemp;
                 string sCheckWord;
-                for (i=0;i<llGetListLength(g_lBadWords); i++) {
+                for (;i < llGetListLength(g_lBadWords); ++i) {
                     sCheckWord = llList2String(g_lBadWords,i);
                      if (~llSubStringIndex(sPenance,sCheckWord)) {
                          lTemp += [sCheckWord];
@@ -309,12 +308,12 @@ UserCommand(integer iNum, string sStr, key kID, integer remenu) { // here iNum: 
                     g_sPenance = sPenance;
                     llMessageLinked(LINK_SAVE, LM_SETTING_SAVE, g_sSettingToken+"penance=" + g_sPenance, "");
                     llMessageLinked(LINK_DIALOG,NOTIFY,"0"+WordPrompt() ,kID);
-                    if (remenu) MenuBadwords(kID,iNum);
+                    if (remenu) MenuBadwords(kID,iAuth);
                 }
             } else {
                 string sText = "\n- Submit the new penance in the field below.\n- Submit a blank field to go back.";
                 sText += "\n\n- Current penance is: " + g_sPenance;
-                Dialog(kID, sText, [], [],0, iNum, "BadwordsPenance");
+                Dialog(kID, sText, [], [],0, iAuth, "BadwordsPenance");
             }
         } else if (sCommand == "remove") {
             list lNewBadWords = llDeleteSubList(lParams, 0, 1);
@@ -327,12 +326,12 @@ UserCommand(integer iNum, string sStr, key kID, integer remenu) { // here iNum: 
                 }
                 llMessageLinked(LINK_SAVE, LM_SETTING_SAVE, g_sSettingToken+"words=" + llDumpList2String(g_lBadWords, ","), "");
                 llMessageLinked(LINK_DIALOG,NOTIFY,"0"+WordPrompt() ,kID);
-                if (remenu) MenuBadwords(kID,iNum);
+                if (remenu) MenuBadwords(kID,iAuth);
             } else {
-                if (g_lBadWords) Dialog(kID, "Select a badword to remove or clear them all.", g_lBadWords, ["Clear", "BACK"],0, iNum, "BadwordsRemove");
+                if (g_lBadWords) Dialog(kID, "Select a badword to remove or clear them all.", g_lBadWords, ["Clear", "BACK"],0, iAuth, "BadwordsRemove");
                 else {
                     llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"The list of badwords is currently empty.",kID);
-                    MenuBadwords(kID,iNum);
+                    MenuBadwords(kID,iAuth);
                 }
             }
         } else if (sCommand == "on") {
@@ -340,18 +339,18 @@ UserCommand(integer iNum, string sStr, key kID, integer remenu) { // here iNum: 
             llMessageLinked(LINK_SAVE, LM_SETTING_SAVE, g_sSettingToken+"on=1", "");
             llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"Use of bad words will now be punished.",kID);
             llMessageLinked(LINK_THIS, APPOVERRIDE, g_sSubMenu, "on");
-            if (remenu) MenuBadwords(kID,iNum);
+            if (remenu) MenuBadwords(kID,iAuth);
         } else if(sCommand == "off") {
             g_iIsEnabled = 0;
             llMessageLinked(LINK_SAVE, LM_SETTING_DELETE, g_sSettingToken+"on","");
             llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"Use of bad words will not be punished.",kID);
             llMessageLinked(LINK_THIS, APPOVERRIDE, g_sSubMenu, "off");
-            if (remenu) MenuBadwords(kID,iNum);
+            if (remenu) MenuBadwords(kID,iAuth);
         } else if(sCommand == "clear") {
             g_lBadWords = [];
             llMessageLinked(LINK_SAVE, LM_SETTING_DELETE, g_sSettingToken+"words","");
             llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"The list of bad words has been cleared.",kID);
-            if (remenu) MenuBadwords(kID,iNum);
+            if (remenu) MenuBadwords(kID,iAuth);
         } else if (sCommand == "stop") {
             if (g_iHasSworn) {
                 if(g_sBadWordSound != g_sNoSound) llStopSound();
@@ -359,7 +358,7 @@ UserCommand(integer iNum, string sStr, key kID, integer remenu) { // here iNum: 
                 llMessageLinked(LINK_DIALOG,NOTIFY,"1"+"Badword punishment stopped.",kID);
                 g_iHasSworn = FALSE;
             }
-            if (remenu) MenuBadwords(kID,iNum);
+            if (remenu) MenuBadwords(kID,iAuth);
         }
         ListenControl();
     }
@@ -367,25 +366,16 @@ UserCommand(integer iNum, string sStr, key kID, integer remenu) { // here iNum: 
 
 
 default {
-    on_rez(integer iParam) {
-        //ListenControl();
-    }
-
     state_entry() {
-        //llSetMemoryLimit(40960);
         g_kWearer = llGetOwner();
-        FailSafe();
         g_sBadWordAnim = "~shock";
         g_sBadWordSound = "Default" ;
-        //Debug("Starting");
     }
 
     link_message(integer iSender, integer iNum, string sStr, key kID) {
-        //Debug("Got message:"+(string)iNum+" "+sStr);
         if (iNum >= CMD_OWNER && iNum <= CMD_WEARER) UserCommand(iNum, sStr, kID, FALSE);
         else if (iNum == MENUNAME_REQUEST && sStr == g_sParentMenu) {
             llMessageLinked(iSender, MENUNAME_RESPONSE, g_sParentMenu+"|"+g_sSubMenu, "");
-            //llMessageLinked(LINK_ANIM, ANIM_LIST_REQUEST,"","");
         } else if (iNum == ANIM_LIST_RESPONSE) ParseAnimList(sStr);
         else if (iNum == CMD_SAFEWORD) {
             if(g_sBadWordSound != g_sNoSound) llStopSound();
@@ -453,26 +443,24 @@ default {
             if (sStr == "LINK_DIALOG") LINK_DIALOG = iSender;
             else if (sStr == "LINK_SAVE") LINK_SAVE = iSender;
             else if (sStr == "LINK_ANIM") LINK_ANIM = iSender;
-        } else if (iNum == REBOOT && sStr == "reboot") llResetScript();
+        } else if (iNum == BUILD_REQUEST)
+            llMessageLinked(iSender,iNum+g_iBuild,llGetScriptName(),"");
+        else if (iNum == REBOOT && sStr == "reboot") llResetScript();
     }
 
     listen(integer iChannel, string sName, key kID, string sMessage) {
-        //release anim if penance & play anim if swear
-        if ((~(integer)llSubStringIndex(llToLower(sMessage), llToLower(g_sPenance))) && g_iHasSworn ) {   //stop sound
+        if ((~(integer)llSubStringIndex(llToLower(sMessage),llToLower(g_sPenance))) && g_iHasSworn) {
             if(g_sBadWordSound != g_sNoSound) llStopSound();
-            //stop anim
             llMessageLinked(LINK_ANIM, ANIM_STOP, g_sBadWordAnim, "");
             llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"Penance accepted.",g_kWearer);
             g_iHasSworn = FALSE;
-        }
-        else if (~llSubStringIndex(sMessage, "rembadword")) return; //subs could theoretically circumvent this feature by sticking "rembadowrd" in all chat, but it doesn't seem likely to happen often
-        else { //check for swear
+        } else if (~llSubStringIndex(sMessage, "rembadword")) return;
+        else {
             sMessage = llToLower(sMessage);
             list lWords = llParseString2List(sMessage, [" "], []);
             while (llGetListLength(lWords)) {
                 string sWord = llList2String(lWords, -1);
                 sWord = DePunctuate(sWord);
-
                 if (llListFindList(g_lBadWords, [sWord]) != -1) {
                     if(g_sBadWordSound != g_sNoSound) {
                         if(g_sBadWordSound == "Default") llLoopSound( "4546cdc8-8682-6763-7d52-2c1e67e8257d", 1.0 );
@@ -485,15 +473,5 @@ default {
                 lWords=llDeleteSubList(lWords,-1,-1);
             }
         }
-    }
-
-    changed(integer iChange) {
-        if (iChange & CHANGED_INVENTORY) FailSafe();
-        /*if (iChange & CHANGED_REGION) {
-            if (g_iProfiled) {
-                llScriptProfiler(1);
-                Debug("profiling restarted");
-            }
-        }*/
     }
 }
