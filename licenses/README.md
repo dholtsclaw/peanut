@@ -2,6 +2,7 @@
 **W e n d y ' s O p e n C o l l a r D i s t r i b u t i o n**
 
  
+
 Wendy's OpenCollar Distribution is a collection of LSL scripts, and creative content, such as sounds, textures and animations. Below you will find all that you need to know about the terms and conditions for all the individual elements of this collection.
 
  
@@ -24,6 +25,7 @@ The textures and their unique database identifiers, that are part of graphical u
 The ~stiff (neck) utility animation is an original creation by Toy Wylie and is licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The ~run utility animation is an upload of an original creation by Vanish Firecaster and may be used freely, on condition that his authorship is noted. The ~good and ~pet animations by Roenik Newell, the ~shock loop by Kabuki Ewing, as well as the ~crawl and crawl animations¹ by Misao Nakamura were utilized from public domain resource.
 
 <sup>¹ Premium selection collars include specially made crawl animations by Surrealia Anatine that remain the property of VirtualDisgrace and its suppliers.</sup>
+
  
 ---
  
@@ -39,11 +41,14 @@ As of early 2018 these collars have new animations added to them, which include 
 
 ​The free cuffs, that are sometimes included with free collars, are very similar to the Virtual Disgrace™ premium selection cuffs, with the exception that the free cuffs receive updates at a different time, and have fewer binding poses³ for the arms. Please see their [individual license text](https://www.opencollar.at/license-terms-for-the-virtual-disgrace-premium-cuffs.html) for details.
 
-<sup>² Multi-frame variations of poses have been created by Ash Ellsberg and remain the property of VirtualDisgrace and its suppliers.</sup>
-<sup>³ All binding poses have been created by Grey Mars and remain the property of VirtualDisgrace and its suppliers.</sup>
+<sup>2 Multi-frame variations of poses have been created by Ash Ellsberg and remain the property of VirtualDisgrace and its suppliers.</sup>
+
+<sup>3 All binding poses have been created by Grey Mars and remain the property of VirtualDisgrace and its suppliers.</sup>
+
  
 ---
  
+
 Other contents of products by virtualdisgrace.com such as LSL scripts, sounds, graphic art, textures, particles, 3D "mesh" models and animations which are not part of Wendy's OpenCollar Distribution stock content remain the property of VirtualDisgrace and its suppliers.
 
 License Terms are subject to change from time to time.
