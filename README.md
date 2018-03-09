@@ -1,5 +1,3 @@
-![Wendy's OpenCollar Updater](https://www.opencollar.at/uploads/2/2/1/6/22167132/wendys-opencollar-updater-2018_orig.jpg "Copyright © 2018 Wendy Starfall")
-
 #### Hi and welcome!
 
 Wendy's OpenCollar Distribution is a collection of little open source programs, built by residents of the Second Life® virtual world and published by virtualdisgrace.com. This collection can be used to create role play toys for various applications, and for individual user needs.
@@ -25,3 +23,5 @@ Despite having hundreds of thousands of users we are only a very small team. Tha
 ##### Working commercially:
 
 Creative resource and other utilities for commercial vendors can usually be found at [opencollar.at](https://www.opencollar.at). This eases the creative process significantly, but of course everything can also be built from scratch and modified under the applicable terms which can be reviewed in the licenses directory of this git repository.
+
+![Wendy's OpenCollar Updater](https://www.opencollar.at/uploads/2/2/1/6/22167132/wendys-opencollar-updater-2018_orig.jpg "Copyright © 2018 Wendy Starfall")
