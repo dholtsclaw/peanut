@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://www.opencollar.at/uploads/2/2/1/6/22167132/wendys-opencollar-updater-2018_orig.jpg" width="400" height="400" alt="Wendy's OpenCollar Updater" title="Copyright © 2018 Wendy Starfall">
-</p>
-
 #### Hi!
 
 Wendy's OpenCollar Distribution is a collection of little open source programs, built by residents of the Second Life® virtual world and published by virtualdisgrace.com. This collection can be used to create role play toys for various applications, and for individual user needs.
@@ -17,6 +13,10 @@ For a working device a core needs to be built first. The required knowledge for 
 We currently have a selection of 20 or so cost-free sample collar, chokers and necklaces available at the virtual [Arcadia](http://maps.secondlife.com/secondlife/Arcadia/31/226/2224). They are all full versions, fully modifiable, transferable and built into 3D models that were created by talented artists. For those who want something a bit more premium, there are also necklaces that can be bought for a small fee, that have more exclusive animations in them and some other goodies in the form of compatible accessory.
 
 If you are looking to upgrade existing items, there is an updater device available for free at the virtual [Arcadia](http://maps.secondlife.com/secondlife/Arcadia/31/226/2224) and on the [Second Life® Marketplace](https://marketplace.secondlife.com/p/Wendys-OpenCollar-Updater/6620453).
+
+<p align="center">
+  <img src="https://www.opencollar.at/uploads/2/2/1/6/22167132/wendys-opencollar-updater-2018_orig.jpg" width="400" height="400" alt="Wendy's OpenCollar Updater" title="Copyright © 2018 Wendy Starfall">
+</p>
 
 The user manual can be found on [opencollar.at](https://www.opencollar.at), and if you browse the menus of a ready-built device, you will find hyperlinked headlines that point to the exact manual page on the web.
 
