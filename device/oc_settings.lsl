@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 
- Settings, Build 110
+ Settings, Build 111
 
  Wendy's OpenCollar Distribution
  https://github.com/wendystarfall/opencollar
@@ -86,7 +86,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 110;
+integer g_iBuild = 111;
 
 string g_sCard = ".settings";
 string g_sSplitLine;
@@ -121,6 +121,7 @@ key g_kConfirmDialogID;
 string g_sSampleURL = "https://goo.gl/adCn8Y";
 
 list g_lSettings;
+key g_kTempOwner;
 
 integer g_iSayLimit = 1024;
 integer g_iCardLimit = 255;
@@ -169,7 +170,10 @@ DelSetting(string sToken) {
         return;
     }
     i = llListFindList(g_lSettings, [sToken]);
-    if (~i) g_lSettings = llDeleteSubList(g_lSettings, i, i + 1);
+    if (~i) {
+        if (sToken == "auth_tempowner") g_kTempOwner = "";
+        g_lSettings = llDeleteSubList(g_lSettings, i, i + 1);
+    }
 }
 
 list Add2OutList(list lIn, string sDebug) {
@@ -314,7 +318,7 @@ UserCommand(integer iAuth, string sStr, key kID) {
     string sStrLower = llToLower(sStr);
     if (sStrLower == "print settings" || sStrLower == "debug settings") PrintSettings(kID, llGetSubString(sStrLower,0,4));
     else if (!llSubStringIndex(sStrLower,"load")) {
-        if (iAuth == CMD_OWNER) {
+        if (iAuth == CMD_OWNER && kID != g_kTempOwner) {
             if (llSubStringIndex(sStrLower,"load url") == 0 && iAuth == CMD_OWNER) {
                 string sURL = llList2String(llParseString2List(sStr,[" "],[]),2);
                 if (!llSubStringIndex(sURL,"http")) {
@@ -414,6 +418,7 @@ default {
             string sToken = llList2String(lParams, 0);
             string sValue = llList2String(lParams, 1);
             g_lSettings = SetSetting(g_lSettings, sToken, sValue);
+            if (sToken == "auth_tempowner" && sValue != "") g_kTempOwner = (key)sValue;
         }
         else if (iNum == LM_SETTING_REQUEST) {
             if (SettingExists(sStr)) llMessageLinked(LINK_ALL_OTHERS, LM_SETTING_RESPONSE, sStr + "=" + GetSetting(sStr), "");
