@@ -6,3 +6,6 @@ Settings that can be loaded directly from this directory into collars! Just copy
 
 * ``hardvanilla~0`` inverts the Vanilla mode, making it become the owner's choice instead.
 ``https://raw.githubusercontent.com/WendyStarfall/opencollar/master/settings/hardvanilla``
+
+* ``norun~1`` disables one's ability to run away.
+``https://raw.githubusercontent.com/WendyStarfall/opencollar/master/settings/norun``
