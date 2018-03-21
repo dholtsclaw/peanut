@@ -1,4 +1,4 @@
-##### This directory has everything that you need for a full featured device!
+#### This directory has everything that you need for a full featured device!
 
 When building, make sure that the core is made from six prims (including the root).
 

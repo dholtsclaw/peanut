@@ -1,4 +1,4 @@
-##### These are extensions!
+#### These are extensions!
 
 If you add any of these to your device, there are a few requirements that you need to be aware of:
 
