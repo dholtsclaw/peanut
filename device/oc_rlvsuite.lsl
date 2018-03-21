@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 
- RLV Suite, Build 33
+ RLV Suite, Build 34
 
  Wendy's OpenCollar Distribution
  https://github.com/wendystarfall/opencollar
@@ -42,7 +42,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 33;
+integer g_iBuild = 34;
 
 string  RESTRICTION_BUTTON = "Restrictions";
 string  RESTRICTIONS_CHAT_COMMAND = "restrictions";
@@ -79,9 +79,7 @@ integer g_iFolderRLVSearch = 98745925;
 integer g_iTimeOut = 30;
 integer g_iRlvOn = FALSE;
 integer g_iRlvaOn = FALSE;
-string g_sCurrentPath;
-string g_sPathPrefix = ".outfits";
-
+string g_sPathPrefix = "Outfits/";
 
 key g_kWearer;
 
@@ -203,38 +201,17 @@ DoTerminalCommand(string sMessage, key kID) {
 OutfitsMenu(key kID, integer iAuth) {
     g_kMenuClicker = kID;
     g_iAuth = iAuth;
-    g_sCurrentPath = g_sPathPrefix + "/";
     llSetTimerEvent(g_iTimeOut);
     g_iListener = llListen(g_iFolderRLV, "", g_kWearer, "");
-    llOwnerSay("@getinv:"+g_sCurrentPath+"="+(string)g_iFolderRLV);
+    llOwnerSay("@getinv:"+g_sPathPrefix+"="+(string)g_iFolderRLV);
 }
 
-FolderMenu(key keyID, integer iAuth,string sFolders) {
-    string sPrompt = "\n[http://www.opencollar.at/outfits.html Outfits]";
-    sPrompt += "\n\nCurrent Path = "+g_sCurrentPath;
-    list lMyButtons = llParseString2List(sFolders,[","],[""]);
-    lMyButtons = llListSort(lMyButtons, 1, TRUE);
-    list lStaticButtons;
-    if (g_sCurrentPath == g_sPathPrefix+"/")
-        lStaticButtons = [UPMENU];
-    else {
-        if (sFolders == "") lStaticButtons = ["WEAR",UPMENU,BACKMENU];
-        else lStaticButtons = [UPMENU,BACKMENU];
-    }
-    Dialog(keyID, sPrompt, lMyButtons, lStaticButtons, 0, iAuth, "folder");
-}
-
-WearFolder (string sStr) {
-    string sAttach ="@attachallover:"+sStr+"=force,attachallover:"+g_sPathPrefix+"/.core/=force";
-    string sPrePath;
-    list lTempSplit = llParseString2List(sStr,["/"],[]);
-    lTempSplit = llList2List(lTempSplit,0,llGetListLength(lTempSplit) -2);
-    sPrePath = llDumpList2String(lTempSplit,"/");
-    if (g_sPathPrefix + "/" != sPrePath)
-        sAttach += ",attachallover:"+sPrePath+"/.core/=force";
+WearFolder(string sStr, key kID) {
+    llMessageLinked(LINK_DIALOG,NOTIFY,"1"+"Changing outfit!",kID);
+    llOwnerSay("@detachallthis:"+g_sPathPrefix+".basics=n");
     llOwnerSay("@remoutfit=force,detach=force");
-    llSleep(1.5);
-    llOwnerSay(sAttach);
+    llOwnerSay("@attachallover:"+g_sPathPrefix+".basics/=force,attachallover:"+sStr+"=force");
+    llOwnerSay("@detachallthis:"+g_sPathPrefix+".basics=y");
 }
 
 doRestrictions(){
@@ -311,6 +288,7 @@ UserCommand(integer iNum, string sStr, key kID, integer bFromMenu) {
                 llSetTimerEvent(g_iTimeOut);
                 g_iListener = llListen(g_iFolderRLVSearch, "", g_kWearer, "");
                 g_kMenuClicker = kID;
+                g_iAuth = iNum;
                 if (g_iRlvaOn) llOwnerSay("@findfolders:"+sLowerStr+"="+(string)g_iFolderRLVSearch);
                 else llOwnerSay("@findfolder:"+sLowerStr+"="+(string)g_iFolderRLVSearch);
             }
@@ -637,27 +615,16 @@ default {
                 else if (sMenu == "terminal") {
                     if (llStringLength(sMessage) > 4) DoTerminalCommand(sMessage, kAv);
                     if (g_iMenuCommand) llMessageLinked(LINK_RLV, iAuth, "menu " + COLLAR_PARENT_MENU, kAv);
-                } else if (sMenu == "folder" || sMenu == "multimatch") {
-                    g_kMenuClicker = kAv;
+                } else if (sMenu == "folder") {
                     if (sMessage == UPMENU)
-                        llMessageLinked(LINK_RLV, iAuth, "menu "+COLLAR_PARENT_MENU, kAv);
-                    else if (sMessage == BACKMENU) {
-                        list lTempSplit = llParseString2List(g_sCurrentPath,["/"],[]);
-                        lTempSplit = llList2List(lTempSplit,0,llGetListLength(lTempSplit) -2);
-                        g_sCurrentPath = llDumpList2String(lTempSplit,"/") + "/";
-                        llSetTimerEvent(g_iTimeOut);
-                        g_iAuth = iAuth;
-                        g_iListener = llListen(g_iFolderRLV, "", g_kWearer, "");
-                        llOwnerSay("@getinv:"+g_sCurrentPath+"="+(string)g_iFolderRLV);
-                    } else if (sMessage == "WEAR") WearFolder(g_sCurrentPath);
+                        llMessageLinked(LINK_RLV,iAuth,"menu rlv",kAv);
                     else if (sMessage != "") {
-                        g_sCurrentPath += sMessage + "/";
-                        if (sMenu == "multimatch") g_sCurrentPath = sMessage + "/";
-                        llSetTimerEvent(g_iTimeOut);
-                        g_iAuth = iAuth;
-                        g_iListener = llListen(g_iFolderRLV, "", llGetOwner(), "");
-                        llOwnerSay("@getinv:"+g_sCurrentPath+"="+(string)g_iFolderRLV);
+                        WearFolder(g_sPathPrefix+sMessage+"/",kAv);
+                        OutfitsMenu(kAv,iAuth);
                     }
+                } else if (sMenu == "multimatch") {
+                    if (sMessage == UPMENU) OutfitsMenu(kAv,iAuth);
+                    else if (sMessage != "") WearFolder(sMessage+"/",kAv);
                 }
             }
         } else if (iNum == DIALOG_TIMEOUT) {
@@ -675,22 +642,20 @@ default {
     listen(integer iChan, string sName, key kID, string sMsg) {
         llSetTimerEvent(0.0);
         if (iChan == g_iFolderRLV) {
-            if (llStringLength(sMsg) == 1023) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"\n\nATTENTION: Either some of the names of your outfit folders are too long, or there are too many folders in your .outfits directory. This could lead to gaps in your outfits folder index. For best operability, please consider reducing the overall amount of subfolders within the .outfits directory and use shorter names.\n",g_kWearer);
-            FolderMenu(g_kMenuClicker,g_iAuth,sMsg);
+            if (llStringLength(sMsg) == 1023) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"\n\nATTENTION: Either some of the names of your outfit folders are too long, or there are too many folders in your Outfits directory. This could lead to gaps in your outfits folder index. For best operability, please consider reducing the overall amount of subfolders within the Outfits directory and use shorter names.\n",g_kWearer);
+            string sPrompt;
+            if (sMsg == "") sPrompt = "\nLooks like there were no outfits prepared yet for this type of %DEVICETYPE%. Thankfully this is very easy to do ♥ : )\n\nVisit www.opencollar.at/outfits to learn how this works!";
+            Dialog(g_kMenuClicker,"\n[http://www.opencollar.at/outfits.html Outfits]\n"+sPrompt,llListSort(llParseString2List(sMsg,[","],[""]),1,TRUE),[UPMENU],0,g_iAuth,"folder");
             g_iAuth = CMD_EVERYONE;
         }
         else if (iChan == g_iFolderRLVSearch) {
             if (sMsg == "") {
-                llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"That outfit couldn't be found in #RLV/"+g_sPathPrefix,kID);
-            } else { // we got a match
-                if (llSubStringIndex(sMsg,",") < 0) {
-                    g_sCurrentPath = sMsg;
-                    WearFolder(g_sCurrentPath);
-                    llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"Loading outfit #RLV/"+sMsg,kID);
-                } else {
-                    string sPrompt = "\nPick one!";
-                    list lFolderMatches = llParseString2List(sMsg,[","],[]);
-                    Dialog(g_kMenuClicker, sPrompt, lFolderMatches, [UPMENU], 0, g_iAuth, "multimatch");
+                llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"That outfit couldn't be found in #RLV/"+g_sPathPrefix,g_kMenuClicker);
+            } else {
+                if (llSubStringIndex(sMsg,",") < 0)
+                    WearFolder(sMsg,g_kMenuClicker);
+                else {
+                    Dialog(g_kMenuClicker,"\nLooks like there are multiple outfits with that name!\n\nPlease choose one:\n",llParseString2List(sMsg,[","],[]),[UPMENU],0,g_iAuth,"multimatch");
                     g_iAuth = CMD_EVERYONE;
                 }
             }
