@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 
- Leash, Build 136
+ Leash, Build 137
 
  Wendy's OpenCollar Distribution
  https://github.com/wendystarfall/opencollar
@@ -67,7 +67,7 @@
  OpenCollar v4.0.0 - v6.7.5 - Peanut build 9 (virtualdisgrace.com):
 
  Copyright © 2015, 2016 Garvin Twine, Romka Swallowtail, Wendy Starfall
- Copyright © 2018 Garvin Twine, Wendy Starfall
+ Copyright © 2018 Garvin Twine, klixi, Wendy Starfall
 
  https://github.com/VirtualDisgrace/opencollar/commits/master
  https://github.com/WendyStarfall/opencollar/commits/master
@@ -89,7 +89,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 136;
+integer g_iBuild = 137;
 
 string TOK_LENGTH = "leashlength";
 string TOK_DEST = "leashedto";
