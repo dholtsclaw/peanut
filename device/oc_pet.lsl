@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 
- Pet me, Build 3
+ Pet me, Build 4
 
  Wendy's OpenCollar Distribution
  https://github.com/wendystarfall/opencollar
@@ -92,7 +92,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 3;
+integer g_iBuild = 4;
 
 list g_lMenuIDs;
 integer g_iMenuStride = 3;
@@ -276,7 +276,7 @@ default {
                 }
             } else if (llToLower(sStr) == "stop couples") StopAnims();
             else if (sStr == "menu Couples" || sStr == "couples")
-                llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"There are currently no couples features installed. For now you can only use the petting action. Type: /%CHANNEL% %PREFIX% pet",kID);
+                llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"\n\nThere are currently no couples features installed. For now you can only use the petting action. Type: /%CHANNEL% %PREFIX% pet\n\nwww.opencollar.at/faq\n",kID);
             else if (sCommand == "couples" && sValue == "verbose") {
                 sValue = llToLower(llList2String(lParams, 2));
                 if (sValue == "off"){
