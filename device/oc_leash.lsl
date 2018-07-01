@@ -235,7 +235,7 @@ ApplyRestrictions() {
     if (g_iLeasherInRange && g_iStrictModeOn) {
         if (g_kLeashedTo) {
             if (!g_bFollowMode) {
-                llMessageLinked(LINK_RLV, RLV_CMD, "fly=n,tplm=n,tplure=n,tploc=n,tplure:" + (string) g_kLeashedTo + "=add", "realleash");
+                llMessageLinked(LINK_RLV, RLV_CMD, "fly=n,tplm=n,tplure=n,tploc=n,sittp:6=n,tplure:" + (string) g_kLeashedTo + "=add", "realleash");
                 return;
             }
         }
