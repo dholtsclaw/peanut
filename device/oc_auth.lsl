@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 
- Auth, Build 186
+ Auth, Build 187
 
  Wendy's OpenCollar Distribution
  https://github.com/wendystarfall/opencollar
@@ -88,7 +88,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 186;
+integer g_iBuild = 187;
 
 string g_sWearerID;
 list g_lOwner;
@@ -308,7 +308,6 @@ AddUniquePerson(string sPersonID, string sToken, key kID) {
 }
 
 SayOwners() {
-    if (llGetObjectDesc() == "Wendy's Updater") return;
     integer iCount = llGetListLength(g_lOwner);
     if (iCount || g_iVanilla) {
         integer index;

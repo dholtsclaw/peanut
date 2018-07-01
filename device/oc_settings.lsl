@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 
- Settings, Build 111
+ Settings, Build 112
 
  Wendy's OpenCollar Distribution
  https://github.com/wendystarfall/opencollar
@@ -86,7 +86,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 111;
+integer g_iBuild = 112;
 
 string g_sCard = ".settings";
 string g_sSplitLine;
@@ -300,6 +300,7 @@ LoadSetting(string sData, integer iLine) {
 }
 
 SendValues() {
+    if (llGetNumberOfPrims() < 6) return;
     integer n;
     string sToken;
     list lOut;
