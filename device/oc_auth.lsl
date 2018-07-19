@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 
- Auth, Build 187
+ Auth, Build 188
 
  Wendy's OpenCollar Distribution
  https://github.com/wendystarfall/opencollar
@@ -88,7 +88,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 187;
+integer g_iBuild = 188;
 
 string g_sWearerID;
 list g_lOwner;
@@ -530,7 +530,7 @@ UserCommand(integer iAuth, string sStr, key kID, integer iRemenu) {
     } else if (sMessage == "runaway"){
         if (kID == g_sWearerID) {
             if (g_iRunawayDisable)
-                llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kID);
+                llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"You can't run.",kID);
             else {
                 Dialog(kID, "\nDo you really want to run away from all owners?", ["Yes", "No"], [UPMENU], 0, iAuth, "runawayMenu",FALSE);
                 return;
