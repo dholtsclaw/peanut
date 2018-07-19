@@ -1,6 +1,6 @@
 /*------------------------------------------------------------------------------
 
- Com, Build 165
+ Com, Build 167
 
  Wendy's OpenCollar Distribution
  https://github.com/wendystarfall/opencollar
@@ -89,7 +89,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 165;
+integer g_iBuild = 167;
 
 integer g_iPrivateListenChan = 1;
 integer g_iPublicListenChan = TRUE;
@@ -138,7 +138,7 @@ integer AUTH_REPLY = 601;
 
 key g_kWearer;
 string g_sGlobalToken = "global_";
-string g_sDeviceName;
+string g_sDeviceName = "Collar";
 string g_sWearerName;
 
 list g_lTouchRequests;
@@ -262,8 +262,7 @@ UserCommand(key kID, integer iAuth, string sStr) {
                 sMessage = "\n"+sObjectName+"'s current device name is \"" + g_sDeviceName + "\".\nDevice Name command help:\n%PREFIX% device name [newname|reset]\n";
                 llMessageLinked(LINK_DIALOG,NOTIFY,"0"+sMessage,kID);
             } else if (sCmdOptions == "reset") {
-                g_sDeviceName = llGetObjectDesc();
-                if (g_sDeviceName == "" || g_sDeviceName =="(No Description)") g_sDeviceName = llGetObjectName();
+                g_sDeviceName = "Collar";
                 sMessage = "The device name is reset to \""+g_sDeviceName+"\".";
                 llMessageLinked(LINK_SAVE, LM_SETTING_DELETE, g_sGlobalToken+"DeviceName", "");
                 llMessageLinked(LINK_SET, LM_SETTING_RESPONSE, g_sGlobalToken+"DeviceName="+g_sDeviceName, "");
@@ -376,8 +375,6 @@ default {
     state_entry() {
         g_kWearer = llGetOwner();
         g_sWearerName = NameURI(g_kWearer);
-        g_sDeviceName = llGetObjectDesc();
-        if (g_sDeviceName == "" || g_sDeviceName =="(No Description)") g_sDeviceName = llGetObjectName();
         llMessageLinked(LINK_SET, LM_SETTING_RESPONSE, g_sGlobalToken+"DeviceName="+g_sDeviceName, "");
         g_sPrefix = llToLower(llGetSubString(llKey2Name(g_kWearer), 0,1));
         g_iHUDChan = -llAbs((integer)("0x"+llGetSubString((string)g_kWearer,-7,-1)));
@@ -604,7 +601,7 @@ default {
                 sSaveIntegrity += "handmade";
             } else {
                 sMessage = "Optimal conditions!";
-                sSaveIntegrity += "standard";
+                sSaveIntegrity += "default";
             }
             llMessageLinked(LINK_THIS,LM_SETTING_RESPONSE,sSaveIntegrity,"");
             llMessageLinked(LINK_SAVE,LM_SETTING_SAVE,sSaveIntegrity,"");
