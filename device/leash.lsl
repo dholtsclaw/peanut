@@ -2,8 +2,9 @@
 
  Leash, Build 137
 
- Wendy's OpenCollar Distribution
- https://github.com/wendystarfall/opencollar
+ Peanut Collar Distribution
+ Copyright © 2018 virtualdisgrace.com
+ https://github.com/VirtualDisgrace/peanut
 
 --------------------------------------------------------------------------------
 

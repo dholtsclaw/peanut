@@ -1,6 +1,6 @@
 #### Hi!
 
-Wendy's OpenCollar Distribution is a collection of little open source programs, built by residents of the Second Life® virtual world and published by virtualdisgrace.com. This collection can be used to create role play toys for various applications, and for individual user needs.
+The Peanut Collar Distribution is a collection of little open source programs, built by residents of the Second Life® virtual world and published by virtualdisgrace.com. This collection can be used to create role play toys for various applications, and for individual user needs.
 
 The most popular application at the moment is interactive accessory, usually necklaces, that can be equipped by avatars who then authorize other avatars so they can play with each other!
 

@@ -2,8 +2,9 @@
 
  Auth, Build 188
 
- Wendy's OpenCollar Distribution
- https://github.com/wendystarfall/opencollar
+ Peanut Collar Distribution
+ Copyright © 2018 virtualdisgrace.com
+ https://github.com/VirtualDisgrace/peanut
 
 --------------------------------------------------------------------------------
 
@@ -334,7 +335,7 @@ SayOwners() {
                 else sMsg += "and "+NameURI(llList2String(g_lOwner,index))+".";
             }
         }
-        if (sMsg == "You belong to ") sMsg += "yourself."; 
+        if (sMsg == "You belong to ") sMsg += "yourself.";
         llMessageLinked(LINK_DIALOG,NOTIFY,"0"+sMsg,g_sWearerID);
     }
 }

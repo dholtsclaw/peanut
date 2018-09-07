@@ -1,9 +1,10 @@
 /*------------------------------------------------------------------------------
 
- Resizer, Build 12
+ Resizer, Build 13
 
- Wendy's OpenCollar Distribution
- https://github.com/wendystarfall/opencollar
+ Peanut Collar Distribution
+ Copyright © 2018 virtualdisgrace.com
+ https://github.com/VirtualDisgrace/peanut
 
 --------------------------------------------------------------------------------
 
@@ -87,7 +88,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 12;
+integer g_iBuild = 13;
 
 string g_sSubMenu = "Size/Position";
 string g_sParentMenu = "Settings";
@@ -117,6 +118,7 @@ integer CMD_WEARER = 503;
 integer NOTIFY = 1002;
 integer REBOOT = -1000;
 integer LINK_DIALOG = 3;
+integer LINK_UPDATE = -10;
 integer MENUNAME_REQUEST = 3000;
 integer MENUNAME_RESPONSE = 3001;
 integer MENUNAME_REMOVE = 3003;
@@ -176,8 +178,8 @@ Store_StartScaleLoop() {
     } else {
         for (iPrimIndex = 1; iPrimIndex <= llGetNumberOfPrims(); iPrimIndex++ ) {
             lPrimParams = llGetLinkPrimitiveParams( iPrimIndex, [PRIM_SIZE, PRIM_POSITION]);
-            vPrimScale=llList2Vector(lPrimParams,0);
-            vPrimPosit=(llList2Vector(lPrimParams,1)-llGetRootPosition())/llGetRootRotation();
+            vPrimScale = llList2Vector(lPrimParams,0);
+            vPrimPosit = (llList2Vector(lPrimParams,1)-llGetRootPosition())/llGetRootRotation();
             g_lPrimStartSizes += [vPrimScale,vPrimPosit];
         }
     }
@@ -418,6 +420,7 @@ default {
         } else if (iNum == BUILD_REQUEST)
             llMessageLinked(iSender,iNum+g_iBuild,llGetScriptName(),"");
         else if (iNum == REBOOT && sStr == "reboot") llResetScript();
+        else if (iNum == LINK_UPDATE && sStr == "LINK_DIALOG") LINK_DIALOG = iSender;
     }
 
     timer() {

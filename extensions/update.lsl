@@ -1,13 +1,10 @@
 /*------------------------------------------------------------------------------
 
- Update, Build 2
+ Update, Build 3
 
- Wendy's OpenCollar Distribution
- https://github.com/wendystarfall/opencollar
-
---------------------------------------------------------------------------------
-
+ Peanut Collar Distribution
  Copyright © 2017, 2018 virtualdisgrace.com
+ https://github.com/VirtualDisgrace/peanut
 
 --------------------------------------------------------------------------------
 
@@ -31,7 +28,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer build = 2;
+integer build = 3;
 integer CMD_WEARER = 503;
 integer NOTIFY = 1002;
 integer REBOOT = -1000;
@@ -58,7 +55,7 @@ key menu_id;
 failsafe() {
     string name = llGetScriptName();
     if((key)name) return;
-    if((upstream && name != "oc_update")) llRemoveInventory(name);
+    if((upstream && name != "update")) llRemoveInventory(name);
 }
 
 default {

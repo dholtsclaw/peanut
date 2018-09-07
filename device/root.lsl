@@ -1,13 +1,10 @@
 /*------------------------------------------------------------------------------
 
- Root, Build 16
+ Root, Build 18
 
- Wendy's OpenCollar Distribution
- https://github.com/wendystarfall/opencollar
-
---------------------------------------------------------------------------------
-
+ Peanut Collar Distribution
  Copyright © 2017, 2018 virtualdisgrace.com
+ https://github.com/VirtualDisgrace/peanut
 
 --------------------------------------------------------------------------------
 
@@ -63,7 +60,7 @@ string safeword = "RED";
 
 ------------------------------------------------------------------------------*/
 
-integer build = 16;
+integer build = 18;
 
 integer CMD_OWNER = 500;
 integer CMD_WEARER = 503;
@@ -224,7 +221,7 @@ menu_settings(key id, integer auth) {
     if (hidden) these_buttons += ["☑ Stealth"];
     else these_buttons += ["☐ Stealth"];
     if (looks) these_buttons += "Looks";
-    else if (llGetInventoryType("oc_themes") == INVENTORY_SCRIPT)
+    else if (llGetInventoryType("themes") == INVENTORY_SCRIPT)
         these_buttons += "Themes";
     dialog(id,context,these_buttons,["BACK"],0,auth,"Settings");
 }
@@ -241,7 +238,6 @@ menu_about(key id) {
     context += "\n\n“"+about+"”";
     context += "\n\n"+group;
     context += "\n"+landmark;
-    context += "\n\nOpenCollar scripts were used in this product to an unknown extent. Relevant [https://raw.githubusercontent.com/OpenCollar/opencollar/master/LICENSE license terms] still apply.";
     llDialog(id,context,["OK"],-12345);
 }
 
@@ -322,13 +318,10 @@ commands(integer auth, string str, key id) {
 failsafe() {
     string name = llGetScriptName();
     if((key)name) return;
-    if (name != "oc_root") {
-        llOwnerSay("\n\nYour script \""+name+"\" has to be named \"oc_root\" or it might cause compatiblity issues, please rename and add your script again to your artwork.\n");
+    if (name != "root") {
+        llOwnerSay("\n\nYour script \""+name+"\" has to be named \"root\" or it might cause compatiblity issues, please rename and add your script again to your artwork.\n");
         llRemoveInventory(name);
     }
-    // this version of oc_root is a combo, we don't need those other plugins
-    if (llGetInventoryType("oc_lock") == INVENTORY_SCRIPT) llRemoveInventory("oc_lock");
-    if (llGetInventoryType("oc_stealth") == INVENTORY_SCRIPT) llRemoveInventory("oc_stealth");
     if (~llSubStringIndex(llToLower(version),"peanut") || ~llSubStringIndex(llToLower(version),"wendy")) version = "<invalid>";
 }
 

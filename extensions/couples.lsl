@@ -1,9 +1,10 @@
 /*------------------------------------------------------------------------------
 
- Couples, Build 77
+ Couples, Build 78
 
- Wendy's OpenCollar Distribution
- https://github.com/wendystarfall/opencollar
+ Peanut Collar Distribution
+ Copyright © 2018 virtualdisgrace.com
+ https://github.com/VirtualDisgrace/peanut
 
 --------------------------------------------------------------------------------
 
@@ -92,7 +93,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 77;
+integer g_iBuild = 78;
 
 list g_lMenuIDs;
 integer g_iMenuStride = 3;
@@ -201,7 +202,7 @@ refreshTimer(){
 }
 
 CoupleAnimMenu(key kID, integer iAuth) {
-    string sPrompt = "\n[http://www.opencollar.at/animations.html Couples]\n\nChoose an animation to play.\n\nAnimations will play ";
+    string sPrompt = "\n[http://www.opencollar.at/legacy-couples.html Legacy Couples]\n\nChoose an animation to play.\n\nAnimations will play ";
     if(g_fTimeOut == 0) sPrompt += "ENDLESS.\n\nNOTE: The non-looped \"pet\" sequence is an exception to this rule and can only play for 20 seconds at a time." ;
     else sPrompt += "for "+(string)llCeil(g_fTimeOut)+" seconds.";
     list lButtons = g_lAnimCmds;
@@ -259,6 +260,30 @@ GetPartnerPermission() {
 }
 
 ReadNotecards() {
+    g_lAnimCmds = ["hug","kiss","pet","hug2","kiss2","foot"];
+    g_lAnimSettings = [
+    "~hug-f","~hug-m","0.4","_SELF_ hugs _PARTNER_.",
+    "~kiss-f","~kiss-m","0.4","_SELF_ kisses _PARTNER_.",
+    "~good","~pet","0.55","_PARTNER_ pets _SELF_'s head.",
+    "~hug-m","~hug-f","0.4","_SELF_ hugs _PARTNER_.",
+    "~kiss-m","~kiss-f","0.4","_SELF_ kisses _PARTNER_.",
+    "~nom","~foot","1.1","_SELF_ noms _PARTNER_'s foot."];
+    integer i = ~llGetListLength(g_lAnimCmds);
+    while (i < -1) {
+        if (llGetInventoryType(llList2String(g_lAnimSettings,++i*4)) != INVENTORY_ANIMATION)
+            jump remove1;
+        if (llGetInventoryType(llList2String(g_lAnimSettings,i*4+1)) != INVENTORY_ANIMATION)
+            jump remove2;
+        jump next;
+        @remove1;
+        g_lAnimSettings = llDeleteSubList(g_lAnimSettings,i*4,i*4+3);
+        g_lAnimCmds = llDeleteSubList(g_lAnimCmds,i,i);
+        jump next;
+        @remove2;
+        g_lAnimSettings = llDeleteSubList(g_lAnimSettings,i*4-1,i*4+2);
+        g_lAnimCmds = llDeleteSubList(g_lAnimCmds,i,i);
+        @next;
+    }
     if (llGetInventoryType(CARD1) != INVENTORY_NOTECARD) CARD1 = "coupleanims";
     if (llGetInventoryType(CARD1) == INVENTORY_NOTECARD) {
         g_kCardID1 = llGetInventoryKey(CARD1);
@@ -477,17 +502,17 @@ default {
                 } else if (!llGetInventoryType(llList2String(lParams, 2)) == INVENTORY_ANIMATION){
                     llMessageLinked(LINK_DIALOG,NOTIFY,"0"+CARD1 + " line " + (string)g_iLine2 + ": animation '" + llList2String(lParams, 2) + "' is not present.  Skipping.",g_kWearer);
                 } else {
-                    integer iIndex = llListFindList(g_lAnimCmds, llList2List(lParams, 0, 0));
+                    string sAnimCmd = llList2String(lParams,0);
+                    integer iIndex = llListFindList(g_lAnimCmds,[sAnimCmd]);
                     if (~iIndex) {
                         g_lAnimCmds=llDeleteSubList(g_lAnimCmds,iIndex,iIndex);
                         g_lAnimSettings=llDeleteSubList(g_lAnimSettings,iIndex*4,iIndex*4+3);
                     }
-                    g_lAnimCmds += llList2List(lParams, 0, 0);
-                    g_lAnimSettings += llList2List(lParams, 1, 3);
-                    g_lAnimSettings += [llList2String(lParams, 4)];
+                    g_lAnimCmds += sAnimCmd;
+                    g_lAnimSettings += llList2List(lParams,1,4);
                 }
             }
-            if ( iCardComplete <2) {
+            if (iCardComplete < 2) {
                 if (kID == g_kDataID1) {
                     g_iLine1++;
                     g_kDataID1 = llGetNotecardLine(CARD1, g_iLine1);

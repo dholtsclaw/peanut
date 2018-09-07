@@ -1,9 +1,10 @@
 /*------------------------------------------------------------------------------
 
- Anim, Build 143
+ Anim, Build 145
 
- Wendy's OpenCollar Distribution
- https://github.com/wendystarfall/opencollar
+ Peanut Collar Distribution
+ Copyright © 2018 virtualdisgrace.com
+ https://github.com/VirtualDisgrace/peanut
 
 --------------------------------------------------------------------------------
 
@@ -90,7 +91,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 143;
+integer g_iBuild = 145;
 
 list g_lAnims;
 list g_lPoseList;
@@ -193,7 +194,7 @@ AnimMenu(key kID, integer iAuth) {
     else lButtons += ["☐ Crawl"];
     lButtons += ["AO Menu", "AO ON", "AO OFF", "Pose"];
     if (~llSubStringIndex(llGetInventoryName(INVENTORY_SCRIPT,1),"couples")) lButtons += "Couples";
-    else if (llGetInventoryType("oc_pet") == INVENTORY_SCRIPT) lButtons +=  "Pet me!";
+    else if (llGetInventoryType("pet") == INVENTORY_SCRIPT) lButtons +=  "Pet me!";
     Dialog(kID, sPrompt, lButtons+g_lAnimButtons, ["BACK"], 0, iAuth, "Anim");
 }
 
@@ -580,7 +581,7 @@ default {
                     else if (sMessage == "Couples") llMessageLinked(LINK_THIS,iAuth,"menu Couples",kAv);
                     else if (sMessage == "Pet me!") llMessageLinked(LINK_THIS,iAuth,"pet me",kAv);
                     else if (sMessage == "AO Menu") {
-                        llMessageLinked(LINK_DIALOG, NOTIFY, "0"+"\n\nAttempting to trigger the AO menu. This will only work if %WEARERNAME% is using an Virtual Disgrace™ Collar AO or an AO Link script in their AO HUD.\n\nwww.opencollar.at/ao\n", kAv);
+                        llMessageLinked(LINK_DIALOG, NOTIFY, "0"+"\n\nAttempting to trigger the AO menu. This will only work if %WEARERNAME% is using a Virtual Disgrace™ AO or an AO Link script in their AO HUD.\n\nwww.opencollar.at/ao\n", kAv);
                         AOMenu(kAv, iAuth);
                     } else {
                         string sOnOff;

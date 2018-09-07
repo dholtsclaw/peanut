@@ -1,9 +1,10 @@
 /*------------------------------------------------------------------------------
 
- Label, Build 77
+ Mesh Label, Build 58
 
- Wendy's OpenCollar Distribution
- https://github.com/wendystarfall/opencollar
+ Peanut Collar Distribution
+ Copyright © 2018 virtualdisgrace.com
+ https://github.com/VirtualDisgrace/peanut
 
 --------------------------------------------------------------------------------
 
@@ -101,15 +102,14 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 77;
+integer g_iBuild = 58;
 
-string g_sAppVersion = "¹⋅⁶";
+string g_sAppVersion = "¹⋅¹";
 
 string g_sParentMenu = "Apps";
 string g_sSubMenu = "Label";
 
 key g_kWearer;
-string g_sSettingToken = "label_";
 
 integer CMD_OWNER = 500;
 integer CMD_TRUSTED = 501;
@@ -118,6 +118,7 @@ integer CMD_WEARER = 503;
 integer NOTIFY = 1002;
 integer REBOOT = -1000;
 integer LINK_DIALOG = 3;
+integer LINK_RLV = 4;
 integer LINK_SAVE = 5;
 integer LINK_UPDATE = -10;
 integer LM_SETTING_SAVE = 2000;
@@ -143,77 +144,66 @@ string g_sColorMenu = "Color";
 list g_lMenuIDs;
 integer g_iMenuStride = 3;
 
-integer g_iScroll = FALSE;
-integer g_iShow = FALSE;
-vector g_vColor;
-integer g_iHide;
+string g_sCharmap = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǰǺǻǼǽǾǿȘșʼˆˇˉ˘˙˚˛˜˝˳̣̀́̃̉̏΄΅Ά·ΈΉΊΌΎΏΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΪΫάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώϑϒϖЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяѐёђѓєѕіїјљњћќѝўџѠѡѢѣѤѥѦѧѨѩѪѫѬѭѮѯѰѱѲѳѴѵѶѷѸѹѺѻѼѽѾѿҀҁ҂҃҄҅҆҈҉ҊҋҌҍҎҏҐґҒғҔҕҖҗҘҙҚқҜҝҞҟҠҡҢңҤҥҦҧҨҩҪҫҬҭҮүҰұҲҳҴҵҶҷҸҹҺһҼҽҾҿӀӁӂӃӄӅӆӇӈӉӊӋӌӍӎӏӐӑӒӓӔӕӖӗӘәӚӛӜӝӞӟӠӡӢӣӤӥӦӧӨөӪӫӬӭӮӯӰӱӲӳӴӵӶӷӸӹӺӻӼӽӾӿԀԁԂԃԄԅԆԇԈԉԊԋԌԍԎԏԐԑԒԓḀḁḾḿẀẁẂẃẄẅẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặẸẹẺẻẼẽẾếỀềỂểỄễỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞởỠỡỢợỤụỦủỨứỪừỬửỮữỰựỲỳỴỵỶỷỸỹὍ–—―‗‘’‚‛“”„†‡•…‰′″‹›‼⁄ⁿ₣₤₧₫€℅ℓ№™Ω℮⅛⅜⅝⅞∂∆∏∑−√∞∫≈≠≤≥◊ﬁﬂﬃﬄ￼ ";
 
-string g_sLabelText = "";
-
-vector g_vGridOffset;
-vector g_vRepeats;
-vector g_vOffset;
-integer FACE = -1;
-
-key g_kFontTexture = NULL_KEY;
 list g_lFonts = [
-    "Andale 1", "ccc5a5c9-6324-d8f8-e727-ced142c873da",
-    "Andale 2", "8e10462f-f7e9-0387-d60b-622fa60aefbc",
-    "Serif 1", "2c1e3fa3-9bdb-2537-e50d-2deb6f2fa22c",
-    "Serif 2", "bf2b6c21-e3d7-877b-15dc-ad666b6c14fe",
-    "LCD", "014291dc-7fd5-4587-413a-0d690a991ae1"
-        ];
+    "Solid", "91b730bc-b763-52d4-d091-260eddda3198",
+    "Outlined", "c1481c75-15ea-9d63-f6cf-9abb6db87039"
+    ];
 
-string g_sCharIndex;
-list g_lDecode;
+key g_kFontTexture = "91b730bc-b763-52d4-d091-260eddda3198";
 
-ResetCharIndex() {
-    g_sCharIndex  = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`";
-    g_sCharIndex += "abcdefghijklmnopqrstuvwxyz{|}~\n\n\n\n\n";
-    g_lDecode= [ "%C3%87", "%C3%BC", "%C3%A9", "%C3%A2", "%C3%A4", "%C3%A0", "%C3%A5", "%C3%A7", "%C3%AA", "%C3%AB" ];
-    g_lDecode+=[ "%C3%A8", "%C3%AF", "%C3%AE", "%C3%AC", "%C3%84", "%C3%85", "%C3%89", "%C3%A6", "%C3%AE", "xxxxxx" ];
-    g_lDecode+=[ "%C3%B6", "%C3%B2", "%C3%BB", "%C3%B9", "%C3%BF", "%C3%96", "%C3%9C", "%C2%A2", "%C2%A3", "%C2%A5" ];
-    g_lDecode+=[ "%E2%82%A7", "%C6%92", "%C3%A1", "%C3%AD", "%C3%B3", "%C3%BA", "%C3%B1", "%C3%91", "%C2%AA", "%C2%BA"];
-    g_lDecode+=[ "%C2%BF", "%E2%8C%90", "%C2%AC", "%C2%BD", "%C2%BC", "%C2%A1", "%C2%AB", "%C2%BB", "%CE%B1", "%C3%9F" ];
-    g_lDecode+=[ "%CE%93", "%CF%80", "%CE%A3", "%CF%83", "%C2%B5", "%CF%84", "%CE%A6", "%CE%98", "%CE%A9", "%CE%B4" ];
-    g_lDecode+=[ "%E2%88%9E", "%CF%86", "%CE%B5", "%E2%88%A9", "%E2%89%A1", "%C2%B1", "%E2%89%A5", "%E2%89%A4", "%E2%8C%A0", "%E2%8C%A1" ];
-    g_lDecode+=[ "%C3%B7", "%E2%89%88", "%C2%B0", "%E2%88%99", "%C2%B7", "%E2%88%9A", "%E2%81%BF", "%C2%B2", "%E2%82%AC", "" ];
-}
+integer x = 45;
+integer y = 19;
 
-vector GetGridOffset(integer iIndex) {
-    integer iRow = iIndex / 10;
-    integer iCol = iIndex % 10;
-    return <g_vGridOffset.x + 0.1 * iCol, g_vGridOffset.y - 0.05 * iRow, g_vGridOffset.z>;
-}
+integer faces = 6;
 
-ShowChars(integer link,vector grkID_offset) {
-    float alpha = llList2Float(llGetLinkPrimitiveParams( link,[PRIM_COLOR,FACE]),1);
-    llSetLinkPrimitiveParamsFast( link,[
-        PRIM_TEXTURE, FACE, (string)g_kFontTexture, g_vRepeats, grkID_offset - g_vOffset, 0.0,
-        PRIM_COLOR, FACE, g_vColor, alpha]);
-}
-
-integer GetIndex(string sChar) {
-    integer  iRet=llSubStringIndex(g_sCharIndex, sChar);
-    if(iRet>=0) return iRet;
-    string sEscaped=llEscapeURL(sChar);
-    integer iFound=llListFindList(g_lDecode, [sEscaped]);
-    if(iFound<0) return 0;
-    return 100+iFound;
-}
-
-RenderString(integer iLink, string sStr) {
-    if(iLink <= 0) return;
-    vector GridOffset1 = GetGridOffset( GetIndex(llGetSubString(sStr, 0, 0)) );
-    ShowChars(iLink,GridOffset1);
-}
-
-float g_fScrollTime = 0.2 ;
+float g_fScrollTime = 0.3 ;
 integer g_iSctollPos ;
 string g_sScrollText;
 list g_lLabelLinks ;
 list g_lLabelBaseElements;
 list g_lGlows;
+
+integer g_iScroll = FALSE;
+integer g_iShow;
+vector g_vColor = <1,1,1>;
+integer g_iHide;
+
+string g_sLabelText = "";
+string g_sSettingToken = "label_";
+
+float Ureps;
+float Vreps;
+
+integer GetIndex(string sChar) {
+    integer i;
+    if (sChar == "") return 854;
+    else i = llSubStringIndex(g_sCharmap, sChar);
+    if (i>=0) return i;
+    else return 854;
+}
+
+RenderString(integer iPos, string sChar) {
+    integer frame = GetIndex(sChar);
+    integer i = iPos/faces;
+    integer link = llList2Integer(g_lLabelLinks,i);
+    integer face = iPos - faces * i;
+    integer frameY = frame / x;
+    integer frameX = frame - x * frameY;
+    float Uoffset = -0.5 + (Ureps/2 + Ureps*(frameX)) ;
+    float Voffset = 0.5 - (Vreps/2 + Vreps*(frameY)) ;
+    llSetLinkPrimitiveParamsFast(link, [PRIM_TEXTURE, face, g_kFontTexture, <Ureps, Vreps,0>, <Uoffset, Voffset, 0>, 0]);
+}
+
+SetColor() {
+    integer i=0;
+    do {
+        integer iLink = llList2Integer(g_lLabelLinks,i);
+        float fAlpha = llList2Float(llGetLinkPrimitiveParams( iLink,[PRIM_COLOR,ALL_SIDES]),1);
+        llSetLinkPrimitiveParamsFast(iLink, [PRIM_COLOR, ALL_SIDES, g_vColor, fAlpha]);
+    } while (++i < llGetListLength(g_lLabelLinks));
+}
 
 integer LabelsCount() {
     integer ok = TRUE ;
@@ -224,28 +214,31 @@ integer LabelsCount() {
     integer iLink;
     integer iLinkCount = llGetNumberOfPrims();
     for(iLink=2; iLink <= iLinkCount; iLink++) {
-        sLabel = llList2String(llGetLinkPrimitiveParams(iLink,[PRIM_NAME]),0);
-        lTmp = llParseString2List(sLabel, ["~"],[]);
+        lTmp = llParseString2List(llList2String(llGetLinkPrimitiveParams(iLink,[PRIM_NAME]),0), ["~"],[]);
         sLabel = llList2String(lTmp,0);
-        if(sLabel == "Label") {
+        if(sLabel == "MeshLabel") {
             g_lLabelLinks += [0];
             llSetLinkPrimitiveParamsFast(iLink,[PRIM_DESC,"Label~notexture~nocolor~nohide~noshiny"]);
         } else if (sLabel == "LabelBase") g_lLabelBaseElements += iLink;
     }
-    g_iCharLimit = llGetListLength(g_lLabelLinks);
+    g_iCharLimit = llGetListLength(g_lLabelLinks) * 6;
     for(iLink=2; iLink <= iLinkCount; iLink++) {
-        sLabel = llList2String(llGetLinkPrimitiveParams(iLink,[PRIM_NAME]),0);
-        lTmp = llParseString2List(sLabel, ["~"],[]);
+        lTmp = llParseString2List(llList2String(llGetLinkPrimitiveParams(iLink,[PRIM_NAME]),0), ["~"],[]);
         sLabel = llList2String(lTmp,0);
-        if(sLabel == "Label") {
+        if (sLabel == "MeshLabel") {
             integer iLabel = (integer)llList2String(lTmp,1);
             integer link = llList2Integer(g_lLabelLinks,iLabel);
-            if(link == 0) g_lLabelLinks = llListReplaceList(g_lLabelLinks,[iLink],iLabel,iLabel);
+            if (link == 0)
+                g_lLabelLinks = llListReplaceList(g_lLabelLinks,[iLink],iLabel,iLabel);
             else {
                 ok = FALSE;
                 llOwnerSay("Warning! Found duplicated label prims: "+sLabel+" with link numbers: "+(string)link+" and "+(string)iLink);
             }
         }
+    }
+    if (!ok) {
+        if (~llSubStringIndex(llGetObjectName(),"Installer") && ~llSubStringIndex(llGetObjectName(),"Updater"))
+            return 1;
     }
     return ok;
 }
@@ -261,71 +254,38 @@ SetLabelBaseAlpha() {
 }
 
 UpdateGlow(integer iLink, integer iAlpha) {
+    integer i;
     if (iAlpha == 0) {
-        SavePrimGlow(iLink);
-        llSetLinkPrimitiveParamsFast(iLink, [PRIM_GLOW, ALL_SIDES, 0.0]);
-    } else RestorePrimGlow(iLink);
-}
-
-SavePrimGlow(integer iLink) {
-    float fGlow = llList2Float(llGetLinkPrimitiveParams(iLink,[PRIM_GLOW,0]),0);
-    integer i = llListFindList(g_lGlows,[iLink]);
-    if (i !=-1 && fGlow > 0) g_lGlows = llListReplaceList(g_lGlows,[fGlow],i+1,i+1);
-    if (i !=-1 && fGlow == 0) g_lGlows = llDeleteSubList(g_lGlows,i,i+1);
-    if (i == -1 && fGlow > 0) g_lGlows += [iLink, fGlow];
-}
-
-RestorePrimGlow(integer iLink) {
-    integer i = llListFindList(g_lGlows,[iLink]);
-    if (i != -1) llSetLinkPrimitiveParamsFast(iLink, [PRIM_GLOW, ALL_SIDES, llList2Float(g_lGlows, i+1)]);
+        float fGlow = llList2Float(llGetLinkPrimitiveParams(iLink,[PRIM_GLOW,0]),0);
+        i = llListFindList(g_lGlows,[iLink]);
+        if (i !=-1 && fGlow > 0) g_lGlows = llListReplaceList(g_lGlows,[fGlow],i+1,i+1);
+        if (i !=-1 && fGlow == 0) g_lGlows = llDeleteSubList(g_lGlows,i,i+1);
+        if (i == -1 && fGlow > 0) g_lGlows += [iLink, fGlow];
+        llSetLinkPrimitiveParamsFast(iLink, [PRIM_GLOW, ALL_SIDES, 0.0]);  // set no glow;
+    } else {
+        i = llListFindList(g_lGlows,[iLink]);
+        if (i != -1) llSetLinkPrimitiveParamsFast(iLink, [PRIM_GLOW, ALL_SIDES, llList2Float(g_lGlows, i+1)]);
+    }
 }
 
 SetLabel() {
     string sText ;
     if (g_iShow) sText = g_sLabelText;
     string sPadding;
-    if (g_iScroll) {
+    if(g_iScroll==TRUE) {
         while(llStringLength(sPadding) < g_iCharLimit) sPadding += " ";
         g_sScrollText = sPadding + sText;
         llSetTimerEvent(g_fScrollTime);
     } else {
         g_sScrollText = "";
         llSetTimerEvent(0);
+        //inlined single use CenterJustify function
         while(llStringLength(sPadding + sText + sPadding) < g_iCharLimit) sPadding += " ";
         sText = sPadding + sText;
         integer iCharPosition;
         for(iCharPosition=0; iCharPosition < g_iCharLimit; iCharPosition++)
-            RenderString(llList2Integer(g_lLabelLinks, iCharPosition), llGetSubString(sText, iCharPosition, iCharPosition));
+            RenderString(iCharPosition, llGetSubString(sText, iCharPosition, iCharPosition));
     }
-}
-
-SetOffsets(key font) {
-    integer link = llList2Integer(g_lLabelLinks, 0);
-    list params = llGetLinkPrimitiveParams(link, [PRIM_DESC, PRIM_TYPE]);
-    string desc = llGetSubString(llList2String(params, 0), 0, 4);
-    if (desc == "Label") {
-        integer t = (integer)llList2String(params, 1);
-        if (t == PRIM_TYPE_BOX) {
-            if (font == NULL_KEY) font = "bf2b6c21-e3d7-877b-15dc-ad666b6c14fe";
-            g_vGridOffset = <-0.45, 0.425, 0.0>;
-            g_vRepeats = <0.126, 0.097, 0>;
-            g_vOffset = <0.036, 0.028, 0>;
-            FACE = 0;
-        } else if (t == PRIM_TYPE_CYLINDER) {
-            if (font == NULL_KEY) font = "2c1e3fa3-9bdb-2537-e50d-2deb6f2fa22c";
-            g_vGridOffset = <-0.725, 0.425, 0.0>;
-            g_vRepeats = <1.434, 0.05, 0>;
-            g_vOffset = <0.037, 0.003, 0>;
-            FACE = 1;
-        }
-        integer o = llListFindList(g_lFonts, [(string)g_kFontTexture]);
-        integer n = llListFindList(g_lFonts, [(string)font]);
-        if (~o && o != n) {
-            if (n < 8 && o == 9) g_vOffset.y += 0.0015;
-            else if (o < 8 && n == 9) g_vOffset.y -= 0.0015;
-        }
-    }
-    g_kFontTexture = font;
 }
 
 Dialog(key kRCPT, string sPrompt, list lChoices, list lUtilityButtons, integer iPage, integer iAuth, string iMenuType) {
@@ -340,34 +300,40 @@ MainMenu(key kID, integer iAuth) {
     list lButtons= [g_sTextMenu, g_sColorMenu, g_sFontMenu];
     if (g_iShow) lButtons += ["☑ Show"];
     else lButtons += ["☐ Show"];
+
     if (g_iScroll) lButtons += ["☑ Scroll"];
     else lButtons += ["☐ Scroll"];
+
     string sPrompt = "\n[http://www.opencollar.at/label.html Label]\t"+g_sAppVersion+"\n\nCustomize the %DEVICETYPE%'s label!";
     Dialog(kID, sPrompt, lButtons, [UPMENU], 0, iAuth,"main");
 }
 
 TextMenu(key kID, integer iAuth) {
-    string sPrompt = "\n[http://www.opencollar.at/label.html Label]\n\n- Submit the new label in the field below.\n- Submit a few spaces to clear the label.\n- Submit a blank field to go back to " + g_sSubMenu + ".";
+    string sPrompt="\n- Submit the new label in the field below.\n- Submit a few spaces to clear the label.\n- Submit a blank field to go back to " + g_sSubMenu + ".";
     Dialog(kID, sPrompt, [], [], 0, iAuth,"textbox");
 }
 
 ColorMenu(key kID, integer iAuth) {
-    string sPrompt = "\n\nSelect a colour from the list";
+    string sPrompt = "\n\nSelect a color from the list";
     Dialog(kID, sPrompt, ["colormenu please"], [UPMENU], 0, iAuth,"color");
 }
 
 FontMenu(key kID, integer iAuth) {
     list lButtons=llList2ListStrided(g_lFonts,0,-1,2);
     string sPrompt = "\n[http://www.opencollar.at/label.html Label]\n\nSelect the font for the %DEVICETYPE%'s label.";
-
     Dialog(kID, sPrompt, lButtons, [UPMENU], 0, iAuth,"font");
+}
+
+ConfirmDeleteMenu(key kAv, integer iAuth) {
+    string sPrompt = "\nDo you really want to uninstall the "+g_sSubMenu+" App?";
+    Dialog(kAv, sPrompt, ["Yes","No","Cancel"], [], 0, iAuth,"rmlabel");
 }
 
 UserCommand(integer iAuth, string sStr, key kAv) {
     string sLowerStr = llToLower(sStr);
-    if (sStr == "rm label") {
+     if (sStr == "rm label") {
         if (kAv!=g_kWearer && iAuth!=CMD_OWNER) llMessageLinked(LINK_DIALOG,NOTIFY,"0"+"%NOACCESS%",kAv);
-        else Dialog(kAv, "\nDo you really want to uninstall the "+g_sSubMenu+" App?", ["Yes","No","Cancel"], [], 0, iAuth,"rmlabel");
+        else ConfirmDeleteMenu(kAv, iAuth);
     } else if (iAuth == CMD_OWNER) {
         if (sLowerStr == "menu label" || sLowerStr == "label") {
             MainMenu(kAv, iAuth);
@@ -379,20 +345,19 @@ UserCommand(integer iAuth, string sStr, key kAv) {
         string sValue = llToLower(llList2String(lParams, 2));
         if (sCommand == "label") {
             if (sAction == "font") {
-                lParams = llDeleteSubList(lParams, 0, 1);
-                string font = llDumpList2String(lParams, " ");
+                string font = llDumpList2String(llDeleteSubList(lParams,0,1)," ");
                 integer iIndex = llListFindList(g_lFonts, [font]);
                 if (iIndex != -1) {
-                    SetOffsets((key)llList2String(g_lFonts, iIndex + 1));
+                    g_kFontTexture = (key)llList2String(g_lFonts, iIndex + 1);
                     llMessageLinked(LINK_SAVE, LM_SETTING_SAVE, g_sSettingToken + "font=" + (string)g_kFontTexture, "");
-                }
-                else FontMenu(kAv, iAuth);
+                } else FontMenu(kAv, iAuth);
             } else if (sAction == "color") {
                 string sColor= llDumpList2String(llDeleteSubList(lParams,0,1)," ");
                 if (sColor != "") {
                     g_vColor=(vector)sColor;
                     llMessageLinked(LINK_SAVE, LM_SETTING_SAVE, g_sSettingToken+"color="+(string)g_vColor, "");
-                }
+                    SetColor();
+                } else ColorMenu(kAv, iAuth);
             } else if (sAction == "on" && sValue == "") {
                 g_iShow = TRUE;
                 SetLabelBaseAlpha();
@@ -415,12 +380,12 @@ UserCommand(integer iAuth, string sStr, key kAv) {
             }
             SetLabel();
         }
-    } else if (iAuth >= CMD_TRUSTED && iAuth <= CMD_WEARER){
+    } else if (iAuth >= CMD_TRUSTED && iAuth <= CMD_WEARER) {
         string sCommand = llToLower(llList2String(llParseString2List(sStr, [" "], []), 0));
-        if (sStr=="menu "+g_sSubMenu) {
+        if (sLowerStr == "menu label") {
             llMessageLinked(LINK_ROOT, iAuth, "menu "+g_sParentMenu, kAv);
             llMessageLinked(LINK_DIALOG, NOTIFY, "0"+"%NOACCESS%", kAv);
-        } else if (sCommand=="labeltext" || sCommand == "labelfont" || sCommand == "labelcolor" || sCommand == "labelshow")
+        } else if (sCommand == "label")
             llMessageLinked(LINK_DIALOG, NOTIFY, "0"+"%NOACCESS%", kAv);
     }
 }
@@ -428,18 +393,20 @@ UserCommand(integer iAuth, string sStr, key kAv) {
 default {
     state_entry() {
         g_kWearer = llGetOwner();
+        Ureps = (float)1 / x;
+        Vreps = (float)1 / y;
         LabelsCount();
-        SetOffsets(NULL_KEY);
-        ResetCharIndex();
         if (g_iCharLimit <= 0) {
-            llMessageLinked(LINK_ROOT, MENUNAME_REMOVE, g_sParentMenu + "|" + g_sSubMenu, "");
+            llMessageLinked(LINK_SET, MENUNAME_REMOVE, g_sParentMenu + "|" + g_sSubMenu, "");
             llRemoveInventory(llGetScriptName());
         }
-        g_sLabelText = llList2String(llParseString2List(llKey2Name(g_kWearer), [" "], []), 0);
-        SetLabel();
     }
 
     on_rez(integer iNum) {
+        if (g_kWearer != llGetOwner()) {
+            g_sLabelText = "";
+            SetLabel();
+        }
         llResetScript();
     }
 
@@ -453,14 +420,15 @@ default {
             if (llGetSubString(sToken, 0, i) == g_sSettingToken) {
                 sToken = llGetSubString(sToken, i + 1, -1);
                 if (sToken == "text") g_sLabelText = sValue;
-                else if (sToken == "font") SetOffsets((key)sValue);
+                else if (sToken == "font") g_kFontTexture = (key)sValue;
                 else if (sToken == "color") g_vColor = (vector)sValue;
                 else if (sToken == "show") g_iShow = (integer)sValue;
                 else if (sToken == "scroll") g_iScroll = (integer)sValue;
+            } else if (sToken == "settings" && sValue == "sent") {
+                SetColor();
+                SetLabel();
             }
-            else if (sToken == "settings" && sValue == "sent") SetLabel();
-        }
-        else if (iNum == MENUNAME_REQUEST && sStr == g_sParentMenu)
+        } else if (iNum == MENUNAME_REQUEST && sStr == g_sParentMenu)
             llMessageLinked(iSender, MENUNAME_RESPONSE, g_sParentMenu + "|" + g_sSubMenu, "");
         else if (iNum == DIALOG_RESPONSE) {
             integer iMenuIndex = llListFindList(g_lMenuIDs, [kID]);
@@ -518,6 +486,7 @@ default {
             g_lMenuIDs = llDeleteSubList(g_lMenuIDs, iMenuIndex - 1, iMenuIndex +3);
         } else if (iNum == LINK_UPDATE) {
             if (sStr == "LINK_DIALOG") LINK_DIALOG = iSender;
+            else if (sStr == "LINK_RLV") LINK_RLV = iSender;
             else if (sStr == "LINK_SAVE") LINK_SAVE = iSender;
         } else if (iNum == BUILD_REQUEST)
             llMessageLinked(iSender,iNum+g_iBuild,llGetScriptName(),"");
@@ -528,15 +497,14 @@ default {
         string sText = llGetSubString(g_sScrollText, g_iSctollPos, -1);
         integer iCharPosition;
         for(iCharPosition=0; iCharPosition < g_iCharLimit; iCharPosition++)
-            RenderString(llList2Integer(g_lLabelLinks, iCharPosition), llGetSubString(sText, iCharPosition, iCharPosition));
+            RenderString(iCharPosition, llGetSubString(sText, iCharPosition, iCharPosition));
         g_iSctollPos++;
-        if (g_iSctollPos > llStringLength(g_sScrollText)) g_iSctollPos = 0 ;
+        if(g_iSctollPos > llStringLength(g_sScrollText)) g_iSctollPos = 0 ;
     }
 
     changed(integer iChange) {
-        if(iChange & CHANGED_LINK) {
+        if(iChange & CHANGED_LINK)
             if (LabelsCount()) SetLabel();
-        }
         if (iChange & CHANGED_COLOR) {
             integer iNewHide = !(integer)llGetAlpha(ALL_SIDES);
             if (g_iHide != iNewHide) {

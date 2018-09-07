@@ -5,10 +5,10 @@ Settings that can be loaded directly from this directory into collars! Just copy
 ##### List of Settings:
 
 * ``hardvanilla~0`` inverts the Vanilla mode, making it become the owner's choice instead.
-``https://raw.githubusercontent.com/WendyStarfall/opencollar/master/settings/hardvanilla``
+``https://raw.githubusercontent.com/VirtualDisgrace/peanut/master/settings/hardvanilla``
 
 * ``norun~1`` disables one's ability to run away.
-``https://raw.githubusercontent.com/WendyStarfall/opencollar/master/settings/norun``
+``https://raw.githubusercontent.com/VirtualDisgrace/peanut/master/settings/norun``
 
 * ``highlander~0`` disables the safety to prevent wearing multiple cores.
-``https://raw.githubusercontent.com/WendyStarfall/opencollar/master/settings/highlander``
+``https://raw.githubusercontent.com/VirtualDisgrace/peanut/master/settings/highlander``

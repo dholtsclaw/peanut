@@ -2,8 +2,9 @@
 
  Dialog, Build 113
 
- Wendy's OpenCollar Distribution
- https://github.com/wendystarfall/opencollar
+ Peanut Collar Distribution
+ Copyright © 2018 virtualdisgrace.com
+ https://github.com/VirtualDisgrace/peanut
 
 --------------------------------------------------------------------------------
 
@@ -346,7 +347,7 @@ list PrettyButtons(list lOptions, list lUtilityButtons, list lPagebuttons) {
     lSpacers = lOptions = lUtilityButtons = lPagebuttons = [];
     integer u = llListFindList(lCombined, ["BACK"]);
     if (u != -1) lCombined = llDeleteSubList(lCombined, u, u);
-    lCombined =   llList2List(lCombined, 9, 11) 
+    lCombined =   llList2List(lCombined, 9, 11)
                 + llList2List(lCombined, 6, 8)
                 + llList2List(lCombined, 3, 5)
                 + llList2List(lCombined, 0, 2);

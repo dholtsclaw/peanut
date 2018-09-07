@@ -1,9 +1,10 @@
 /*------------------------------------------------------------------------------
 
- Com, Build 167
+ Com, Build 169
 
- Wendy's OpenCollar Distribution
- https://github.com/wendystarfall/opencollar
+ Peanut Collar Distribution
+ Copyright © 2018 virtualdisgrace.com
+ https://github.com/VirtualDisgrace/peanut
 
 --------------------------------------------------------------------------------
 
@@ -89,7 +90,7 @@
 
 ------------------------------------------------------------------------------*/
 
-integer g_iBuild = 167;
+integer g_iBuild = 169;
 
 integer g_iPrivateListenChan = 1;
 integer g_iPublicListenChan = TRUE;
@@ -152,7 +153,7 @@ string g_sPOSE_ANIM = "turn_180";
 
 integer g_iTouchNotify;
 integer g_iHighlander = TRUE;
-list g_lCore5Scripts = ["LINK_AUTH","oc_auth","LINK_DIALOG","oc_dialog","LINK_RLV","oc_rlvsys","LINK_SAVE","oc_settings","LINK_ANIM","oc_anim"];
+list g_lCore5Scripts = ["LINK_AUTH","auth","LINK_DIALOG","dialog","LINK_RLV","rlvsys","LINK_SAVE","settings","LINK_ANIM","anim"];
 list g_lFoundCore5Scripts;
 list g_lWrongRootScripts;
 integer g_iVerify;
@@ -258,10 +259,8 @@ UserCommand(key kID, integer iAuth, string sStr) {
             string sMessage;
             string sObjectName = llGetObjectName();
             string sCmdOptions = llDumpList2String(llDeleteSubList(lParams,0,1), " ");
-            if (sValue == "") {
-                sMessage = "\n"+sObjectName+"'s current device name is \"" + g_sDeviceName + "\".\nDevice Name command help:\n%PREFIX% device name [newname|reset]\n";
-                llMessageLinked(LINK_DIALOG,NOTIFY,"0"+sMessage,kID);
-            } else if (sCmdOptions == "reset") {
+            if (sCmdOptions == "") return;
+            else if (sCmdOptions == "reset") {
                 g_sDeviceName = "Collar";
                 sMessage = "The device name is reset to \""+g_sDeviceName+"\".";
                 llMessageLinked(LINK_SAVE, LM_SETTING_DELETE, g_sGlobalToken+"DeviceName", "");
@@ -537,16 +536,16 @@ default {
             string sScriptName;
             while (i) {
                 sScriptName = llGetInventoryName(INVENTORY_SCRIPT,--i);
-                if (sScriptName != "oc_com" && sScriptName != "oc_root"
+                if (sScriptName != "com" && sScriptName != "root"
                 && llGetInventoryType(sScriptName) == INVENTORY_SCRIPT
                 && llGetScriptState(sScriptName) == FALSE) {
                     llSetScriptState(sScriptName,TRUE);
                     llResetOtherScript(sScriptName);
                 }
             }
-            if (llGetInventoryType("oc_root") == INVENTORY_SCRIPT && !llGetScriptState("oc_root")) {
-                llSetScriptState("oc_root",TRUE);
-                llResetOtherScript("oc_root");
+            if (llGetInventoryType("root") == INVENTORY_SCRIPT && !llGetScriptState("root")) {
+                llSetScriptState("root",TRUE);
+                llResetOtherScript("root");
             }
             llResetScript();
         }
@@ -592,7 +591,7 @@ default {
             i = i + 2;
         } while (i<10);
         i = llGetLinkNumber();
-        if (i != 1) sMessage += "\noc_com\t(not in root prim!)";
+        if (i != 1) sMessage += "\ncom\t(not in root prim!)";
         string sSaveIntegrity = "intern_integrity=";
         if (llSubStringIndex(sMessage,"False") == -1 && llGetListLength(lTemp) == 1) {
             g_lFoundCore5Scripts = llListSort(g_lFoundCore5Scripts,2, TRUE);
@@ -610,7 +609,7 @@ default {
         } else {
             if (llGetListLength(lTemp) ==1) lTemp = [];
             sMessage = "\n\nCore corruption detected:\n"+ llDumpList2String(lTemp,"\n")+sMessage;
-            if (i == 1) sMessage += "\noc_com\t(root)";
+            if (i == 1) sMessage += "\ncom\t(root)";
             llMessageLinked(LINK_SAVE,LM_SETTING_DELETE,"intern_integrity","");
         }
         g_lFoundCore5Scripts = [];
